@@ -14,7 +14,7 @@ class AddColFindMeBuyerToCarsTable extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->boolean('find_me_buyer')->default('false');
+            $table->boolean('find_me_buyer')->default(false);
         });
     }
 
