@@ -15,9 +15,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        DB::connection()->setSchemaGrammar(new ExtendedPostgresGrammar());
-        $schema = DB::connection()->getSchemaBuilder();
-        $schema->create('users', function (Blueprint $table) {
+        Schema::create('password_resets', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->string('facebook_id', 255)->nullable();
