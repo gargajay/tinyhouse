@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->enum('status', [0, 1])->default(1);
             $table->enum('user_type', ['seller', 'buyer', 'admin'])->default('buyer');
             $table->point('geolocation')->nullable();
-            $table->boolean('is_info')->default('false');
+            $table->boolean('is_info')->default(false);
             $table->longText('description')->nullable();
             $table->string('is_status')->default('Enable')->comment('Enable, Disable , Delete');
             $table->rememberToken();
