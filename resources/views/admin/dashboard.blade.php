@@ -15,7 +15,7 @@
                 <div class="row">
 
                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="card card-body bg-primary text-white has-bg-image">
+                        <div class="card card-body  text-white has-bg-image">
                             <div class="media">
                                 <div class="media-body">
                                     <h3 class="mb-0">{{ $data['seller_count'] ?? 0 }}</h3>
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="card card-body bg-primary text-white has-bg-image">
+                        <div class="card card-body  text-white has-bg-image">
                             <div class="media">
                                 <div class="media-body">
                                     <h3 class="mb-0">{{ $data['buyer_count'] ?? 0 }}</h3>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="card card-body bg-primary text-white has-bg-image">
+                        <div class="card card-body  text-white has-bg-image">
                             <div class="media">
                                 <div class="media-body">
                                     <h3 class="mb-0">{{ $data['car_count'] ?? 0 }}</h3>
