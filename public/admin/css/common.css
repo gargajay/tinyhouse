@@ -12,44 +12,44 @@ body {
 }
 
 .sidebar-dark .nav-sidebar>.nav-item>.nav-link.active {
-    background-color: #24388A !important;
+    background-color: #2d8a24 !important;
     color: #fff;
 }
 
-.sidebar-dark{
-    background-color:#24388A !important;
+.sidebar-dark {
+    background-color: #2d8a24 !important;
 }
 .navbar-dark{
-    background-color:#24388A !important;
+    background-color:#2d8a24 !important;
 }
 
 .sidebar-dark .nav-sidebar .nav-link:not(.disabled):hover {
     color: #fff;
-    background-color: #24388A !important;
+    background-color: #2d8a24 !important;
 }
 
 .t-head {
-    background-color: #002b8f !important;
+    background-color: #158f00 !important;
     color: #FFF;
 }
 
 .btn.btn-primary {
     color: #fff;
-    background-color: #24388A !important;
-    border-color: #24388A !important;
+    background-color: #2d8a24 !important;
+    border-color: #2d8a24 !important;
 }
 
 .btn.btn-primary:hover {
     color: #fff;
-    background-color: #24388A !important;
-    border-color: #24388A !important;
+    background-color: #2d8a24 !important;
+    border-color: #2d8a24 !important;
 }
 
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #24388A !important;
-    border-color: #24388A !important;
+    background-color: #2d8a24 !important;
+    border-color: #2d8a24 !important;
 }
 
 .page-title {
@@ -91,6 +91,6 @@ body {
     height: 130px;
 }
 .sidebar-dark .nav-sidebar>.nav-item>.nav-link.active {
-    background-color: #203ebb !important;
+    background-color: #20bb47 !important;
     color: #fff;
 }
