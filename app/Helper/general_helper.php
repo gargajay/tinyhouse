@@ -680,12 +680,12 @@ if (!function_exists('lastOneYearMontlyData')) {
         $monthName = Carbon\Carbon::now()->subMonths(1)->format('M-y');
 
         $data = $mobel->selectRaw('COUNT(*)
- as count, to_char(created_at, \'MM\') as month , MAX(id)
+ as count, DATE_FORMAT(created_at, \'MM\') as month , MAX(id)
  as id')
             ->whereRaw("DATE(created_at) BETWEEN ? AND ?", [
                 Carbon\Carbon::now()->subMonths(12)->startOfMonth()->format('Y-m-d'),
                 Carbon\Carbon::now()->endOfMonth()->format('Y-m-d')
- ])->groupByRaw('to_char(created_at, \'MM\')')->orderBy('id', 'asc')->get()->toArray();
+ ])->groupByRaw('DATE_FORMAT(created_at, \'MM\')')->orderBy('id', 'asc')->get()->toArray();
 
         // Create an associative array with month as key and data count as value
         $data = array_combine(array_column($data, 'month'), array_column($data, 'count'));
