@@ -9,9 +9,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link href="{{ asset('admin') }}/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
-    <link href="{{ asset('admin') }}/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="{{ asset('admin') }}/css/session-page.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/admin') }}/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/admin') }}/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/admin') }}/css/session-page.css" rel="stylesheet" type="text/css">
 
     <style>
         .login-cover {
@@ -32,11 +32,11 @@
 
     </div>
 
-    <script src="{{ asset('admin') }}/js/main/jquery.min.js"></script>
-    <script src="{{ asset('admin') }}/js/main/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('admin') }}/js/app.js"></script>
-    <script src="{{ asset('admin') }}/js/jquery.validate.min.js"></script>
-    <script src="{{ asset('admin') }}/js/jquery.shorten.min.js"></script>
+    <script src="{{ asset('public/admin') }}/js/main/jquery.min.js"></script>
+    <script src="{{ asset('public/admin') }}/js/main/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('public/admin') }}/js/app.js"></script>
+    <script src="{{ asset('public/admin') }}/js/jquery.validate.min.js"></script>
+    <script src="{{ asset('public/admin') }}/js/jquery.shorten.min.js"></script>
     @yield('page_script')
 
     <script>
