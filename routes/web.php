@@ -22,20 +22,28 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function (Request $request) {
-    //return view('welcome');
+// Route::get('/', function (Request $request) {
+//     //return view('welcome');
 
-    $userId = $request->user()->id ?? NULL;
+//     $userId = $request->user()->id ?? NULL;
 
-    if ($userId) {
-        return redirect()->route('dashboard');
-    } else {
-        return view('admin.login');
-    }
-})->name('/');
+//     if ($userId) {
+//         return redirect()->route('dashboard');
+//     } else {
+//         return view('admin.login');
+//     }
+// })->name('/');
+
+
+Route::get('/', 'HomeController@index')->name('home');
+
+
+
+
+
+/**********************************************************admin route************************************************ */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/getpayment', [PaymentController::class,'getPayments']);
 Route::get('/password-reset/{token}', 'ForgotPasswordController@resetPassword')->name('password.reset');
 Route::post('/password-reset-update', 'ForgotPasswordController@updatePassword')->name('password.reset.update');
@@ -108,6 +116,7 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::get('export', 'AdminController@export')->name('export');
     });
     Route::post('/check-email-exist', 'AdminController@checkEmailExist')->name('check.email.exist');
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+/************************************************end admin route */
 });
 
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
