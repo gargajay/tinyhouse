@@ -11,7 +11,7 @@
                     <div class="card mb-0 login_box">
                         <div class="card-body">
                             <div class="text-center mb-3">
-                                <img src="{{ asset('images/logo.png') }}" width="100">
+                                <img src="{{ asset('public/images/logo.png') }}" width="100">
                                 <h5 class="mb-0 sp-des">Reset Password</h5>
                             </div>
 

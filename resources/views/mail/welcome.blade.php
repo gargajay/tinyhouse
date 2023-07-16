@@ -8,7 +8,7 @@
         <div align="center">
              <div style="max-width: 680px; min-width: 500px; border: 2px solid #e3e3e3; border-radius:5px; margin-top: 20px">   
         	    <div>
-        	        <img src="{{ asset('images/logo.png') }}" width="250" alt="CREATIVE TALENT MANAGEMENT" border="0"  />
+        	        <img src="{{ asset('public/images/logo.png') }}" width="250" alt="CREATIVE TALENT MANAGEMENT" border="0"  />
         	    </div> 
         	    <div  style="background-color: #fbfcfd; border-top: thick double #cccccc; text-align: left;">
         	        <div style="margin: 30px;">
