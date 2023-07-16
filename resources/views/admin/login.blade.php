@@ -8,7 +8,7 @@
                 <div class="card mb-0 login_box">
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <img src="{{ asset('images/logo.png') }}" width="100"style="border-radius:10%"/>
+                            <img src="{{ asset('public/images/logo.png') }}" width="100"style="border-radius:10%"/>
                             <h5 class="mb-0 sp-des">Login</h5>
                         </div>
                         @include('success-error')
