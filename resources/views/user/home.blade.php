@@ -1,3 +1,6 @@
+@extends('layouts.guest')
+@section('content')
+@section('content')
 <div id="bodyWrapper" class="flex-grow-1">
             <section class="tinny_houses">
                 <div class="container_lg py-17">
@@ -5,7 +8,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -19,7 +22,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img2.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -33,7 +36,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img3.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -47,7 +50,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img4.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -61,7 +64,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -75,7 +78,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img2.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -89,7 +92,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img3.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -103,7 +106,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img4.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -117,7 +120,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -131,7 +134,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img2.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -145,7 +148,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img3.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -159,7 +162,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img4.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -173,7 +176,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -187,7 +190,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img2.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -201,7 +204,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img3.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -215,7 +218,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img4.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -229,7 +232,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -243,7 +246,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img2.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -257,7 +260,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img3.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -271,7 +274,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="#" class="house_img">
-                                    <img src="{{ asset('public/') }}assets/images/house_img4.jpg" alt="House" class="img-fluid" />
+                                    <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
@@ -286,3 +289,4 @@
                 </div>
             </section>
         </div>
+@endsection

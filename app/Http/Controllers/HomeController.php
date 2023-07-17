@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class HomeController extends Controller
 {
     /**
@@ -21,8 +22,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('user.home');
     }
+
+    public function search(Request $request)
+    {
+        return view('user.search');
+    }
+
+    public function postDetail(Request $request)
+    {
+        return view('user.single-post');
+    }
+
+    public function CreatePost(Request $request){
+        return view('user.post');
+
+    }
+
+   
 }

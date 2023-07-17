@@ -15,8 +15,8 @@ class CreateVehicleModelsTable extends Migration
     {
         Schema::create('vehicle_models', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('vehicle_companies_id')->unsigned();
-            $table->string('model_name')->unsigned();
+            $table->bigInteger('vehicle_companies_id')->nullable();
+            $table->string('model_name');
             $table->timestamps();
         });
     }

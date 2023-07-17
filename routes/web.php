@@ -35,7 +35,10 @@ use Illuminate\Support\Facades\Auth;
 // })->name('/');
 
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('/');
+Route::get('/search', 'HomeController@search');
+Route::get('/post-detail', 'HomeController@postDetail');
+Route::get('/create-post', 'HomeController@createPost')->name('/');
 
 
 
