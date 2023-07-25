@@ -1,3 +1,10 @@
+<?php
+
+use App\Models\Car;
+
+$categories = Car::getcategories();
+?>
+
 <header class="bg-white sticky-top">
     <div class="container_lg">
         <div class="header_inner border-bottom border-gray">
