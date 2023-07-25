@@ -99,7 +99,7 @@ $categories = Car::getcategories();
                     <h3 class="mb-0">Find a Tiny Homes</h3>
                     <ul class="menu_list">
                     @forelse($categories as $listing)
-                    <li><a href="#{{$listing->id}}" class= "category-filter" data-category="{{$listing->id}}">{{$listing->title}}</a></li>
+                    <li><a href="{{url('search')}}" class= "category-filter" data-category="{{$listing->id}}">{{$listing->title}}</a></li>
                     @empty
 
                     @endforelse

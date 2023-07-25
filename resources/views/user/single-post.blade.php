@@ -76,13 +76,13 @@
                                     </li>
                                  
                                     <li>
-                                        <span class="text-uppercase">TITLE STATUS</span>
-                                        <span class="fw-500">Clean</span>
+                                        <span class="text-uppercase">STATUS</span>
+                                        <span class="fw-500">{{$post->title}}</span>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <span class="text-uppercase">CAR FUEL TYPE</span>
                                         <span class="fw-500">Electric</span>
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <span class="text-uppercase">Sleeps</span>
                                         <span class="fw-500">{{$post->engine}}</span>
