@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('public/') }}/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset('public/') }}/assets/css/stye.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMJgzQhnqDBw6YL8Zd1rFk8L402-tSw0&libraries=places"></script>
+
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
+
+
+    @yield('page_style')
 </head>
 
 <body>
@@ -42,7 +48,7 @@
     </div>
 
     <!-- Sign in Modal -->
-    <div class="modal fade cusmodal" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade cusmodal" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-670">
             <div class="modal-content">
                 <div class="modal-body">
@@ -84,7 +90,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Sign up Modal -->
     <div class="modal fade cusmodal" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
@@ -127,13 +133,13 @@
                                     <label class="custom-control-label" for="customCheck1">I understand the rule &amp; I accept the <a href="#" class="pl-1 text-white">Terms &amp; Conditions.</a></label>
                                 </div>
                             </div>
-                            <button type="button" class="btn-light w-100 mt-3">Continue</button>
-                            <button type="button" class="btn-light w-100 mt-4">
+                            <button type="button" id="#continueBtn" class="btn-light w-100 mt-3">Continue</button>
+                            <!-- <button type="button" class="btn-light w-100 mt-4">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" class="svg-inline--fa fa-google mr-4">
                                     <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
                                 </svg>
                                 <span>Continue With Google</span>
-                            </button>
+                            </button> -->
                             <div class="mt-10 w-100 text-center">
                                 <a href="#" class="cursor-pointer text-white">Already a member? Sign in</a>
                             </div>
@@ -146,9 +152,121 @@
 
     <script src="{{ asset('public/') }}/assets/js/jquery.slim.min.js"></script>
     <script src="{{ asset('public/') }}/assets/js/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="{{ asset('public/') }}/assets/js/bootstrap.min.js"></script>
     <script src="{{ asset('public/') }}/assets/js/slick.min.js"></script>
+
     <script src="{{ asset('public/') }}/assets/js/custom.js"></script>
+    @yield('page_script')
+
+   
+
+<script>
+    function showToast(isSuccess, message) {
+        // Get the toast container element
+ var type ='success';
+        if (isSuccess) {
+            type = 'success';
+        } else {
+            type = 'danger';
+
+        }
+        const toastContainer = $('.toast-container');
+
+        // Create the toast alert with the specified type and message
+        const toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="3000">')
+            .addClass('toast-' + type)
+            .append('<div class="toast-header"><strong class="mr-auto">Alert</strong><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+            .append('<div class="toast-body">' + message + '</div>');
+
+        // Append the toast alert to the container and show it
+        toastContainer.append(toast);
+        toast.toast('show');
+    }
+ //   showToast('success', 'House posted successfully.');
+
+</script>
+
+<script>
+jQuery(document).ready(function ($) {
+        // Function to perform the AJAX signup request and handle errors
+        function performSignup(formData) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("/signup") }}', // Replace this with your Laravel route for signup
+                data: formData,
+                success: function (response) {
+                    // Handle successful signup, e.g., show a success message or redirect the user
+                    console.log('Signup successful:', response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle signup errors and display them in the modal
+                    let errors = xhr.responseJSON.errors;
+                    let errorMessages = '';
+                    for (let field in errors) {
+                        errorMessages += `<p>${errors[field]}</p>`;
+                    }
+                    $('#signupModal .modal-body').append(`<div class="alert alert-danger">${errorMessages}</div>`);
+                }
+            });
+        }
+
+        // Handle "Continue" button click event
+        $('#continueBtn').on('click', function () {
+            // Clear any previous error messages in the modal
+            $('#signupModal .modal-body .alert').remove();
+
+            // Prepare the form data for signup (replace this with actual form data)
+            let formData = {
+                first_name: $('#signupModal input[name="first_name"]').val(),
+                last_name: $('#signupModal input[name="last_name"]').val(),
+                email: $('#signupModal input[name="email"]').val(),
+                password: $('#signupModal input[name="password"]').val(),
+                confirm_password: $('#signupModal input[name="confirm_password"]').val(),
+                phone_number: $('#signupModal input[name="phone_number"]').val(),
+            };
+
+            performSignup(formData);
+        });
+
+        // Rest of your JavaScript code ...
+    });
+
+    </script>
+
+
+<script>
+  // Function to initialize Autocomplete
+  function initAutocomplete() {
+    const locationInput = document.getElementById('locationInput');
+    const autocomplete = new google.maps.places.Autocomplete(locationInput);
+  }
+
+  // Load the Google Maps API and initialize Autocomplete
+  google.maps.event.addDomListener(window, 'load', initAutocomplete);
+</script>
+
+<script>
+$(document).ready(function () {
+    function getQueryParameter(name) {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get the value of the 'search_term' query parameter
+    var searchValue = getQueryParameter('search_term');
+
+    // Set the value of the search input
+    $('input[name="search_term"]').val(searchValue);
+
+    // Rest of your code...
+
+});
+</script>
+
+
+
 
   
    

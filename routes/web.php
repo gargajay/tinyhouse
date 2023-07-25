@@ -37,8 +37,20 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('/search', 'HomeController@search');
+Route::post('/search2', 'HomeController@search2');
 Route::get('/post-detail', 'HomeController@postDetail');
-Route::get('/create-post', 'HomeController@createPost')->name('/');
+
+
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/create-post', 'HomeController@createPost');
+    Route::get('/my-home', 'HomeController@myHome');
+    Route::get('/account-setting', 'HomeController@accountSetting');
+    Route::post('/add-car', 'HomeController@AddCars');
+    
+
+
+});
 
 
 

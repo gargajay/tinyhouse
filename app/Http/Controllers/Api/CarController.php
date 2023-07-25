@@ -962,8 +962,8 @@ class CarController extends Controller
         $response['success'] = false;
         $requestData = $request->all();
         $userId = $request->user()->id ?? 0;
-        $min = Carmaster::min('year_from');
-        $max = Carmaster::max('year_from');
+        $min = 1950;
+        $max = date('Y');
         $years = range($min, $max);
 
         $collection = new Collection();

@@ -12,6 +12,8 @@
     <link href="{{ asset('public/admin') }}/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('public/admin') }}/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('public/admin') }}/css/session-page.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/') }}/assets/css/stye.css" />
+
 
     <style>
         .login-cover {

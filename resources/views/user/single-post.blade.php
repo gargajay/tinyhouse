@@ -10,98 +10,41 @@
                             <link rel="stylesheet" href="{{ asset('public/') }}/assets/css/slick.css" />
                             <link rel="stylesheet" href="{{ asset('public/') }}/assets/css/slick-theme.css" />
                             <div class="gallery mb-4 mb-xl-5">
+                               
                                 <div class="house_gallery">
+                                    @if(isset($post->cars_images) && $post->cars_images->IsNotEmpty())
+                                    @foreach($post->cars_images as $image)
                                     <div>
                                         <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                            <img src="{{ $image->image }}" alt="House" class="img-fluid" />
                                         </div>
                                     </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                   
+                                    @endif
+                                    
                                 </div>
                                 <div class="house_gallery_thumb">
+                                @if(isset($post->cars_images) && $post->cars_images->IsNotEmpty())
+                                    @foreach($post->cars_images as $image)
                                     <div>
                                         <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                            <img src="{{ $image->image }}" alt="House" class="img-fluid" />
                                         </div>
                                     </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                   
+                                    @endif
+                                  
                                 </div>
                             </div>
                         </div>
 
                         <div class="hourse_right_dtl f-right">
                             <div class="title_head">
-                                <h3 class="fw-600 textDark mb-0">Honda Fit EV</h3>
-                                <p class="text-xl textDark fw-600 mt-1 mb-0">$2,000</p>
-                                <p class="text-sm textDark fw-500 mt-1 mb-0">Zip Code: 20015</p>
+                                <h3 class="fw-600 textDark mb-0">{{$post->make}} {{$post->model}}</h3>
+                                <p class="text-xl textDark fw-600 mt-1 mb-0">${{$post->make}}</p>
+                                <p class="text-sm textDark fw-500 mt-1 mb-0">Post Code: 20015</p>
                             </div>
                             <div class="cusbtns py-4">
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#sellerModal" class="btn btn-theme text-base fw-500 rounded-pill">Contact Seller</a>
@@ -113,32 +56,25 @@
                                 <ul class="mt-4">
                                     <li>
                                         <span class="text-uppercase">Year</span>
-                                        <span class="fw-500">2013</span>
+                                        <span class="fw-500">{{$post->year}}</span>
                                     </li>
                                     <li>
-                                        <span class="text-uppercase">MAKE</span>
-                                        <span class="fw-500">Honda</span>
+                                        <span class="text-uppercase">Manufacture</span>
+                                        <span class="fw-500">{{$post->make}}</span>
                                     </li>
                                     <li>
                                         <span class="text-uppercase">MODEL</span>
-                                        <span class="fw-500">Fit EV</span>
+                                        <span class="fw-500">{{$post->model}}</span>
                                     </li>
                                     <li>
                                         <span class="text-uppercase">CONDITION</span>
-                                        <span class="fw-500">Excellent</span>
+                                        <span class="fw-500">{{$post->condition}}</span>
                                     </li>
                                     <li>
-                                        <span class="text-uppercase">MILEAGE</span>
-                                        <span class="fw-500">32</span>
+                                        <span class="text-uppercase">Shower/Toilet</span>
+                                        <span class="fw-500">{{$post->mileage}}</span>
                                     </li>
-                                    <li>
-                                        <span class="text-uppercase">EXTERIOR COLOR</span>
-                                        <span class="d-block color_circle aspect-square rounded-fill" style="background: rgb(126, 249, 255);"></span>
-                                    </li>
-                                    <li>
-                                        <span class="text-uppercase">INTERIOR COLOR</span>
-                                        <span class="d-block color_circle aspect-square rounded-fill" style="background: rgb(126, 249, 255);"></span>
-                                    </li>
+                                 
                                     <li>
                                         <span class="text-uppercase">TITLE STATUS</span>
                                         <span class="fw-500">Clean</span>
@@ -148,23 +84,23 @@
                                         <span class="fw-500">Electric</span>
                                     </li>
                                     <li>
-                                        <span class="text-uppercase">VEHICLE TRIM</span>
-                                        <span class="fw-500">4dr Hatchback (electric DD)</span>
+                                        <span class="text-uppercase">Sleeps</span>
+                                        <span class="fw-500">{{$post->engine}}</span>
                                     </li>
                                     <li>
                                         <span class="text-uppercase">CITY</span>
-                                        <span class="fw-500">null</span>
+                                        <span class="fw-500">{{$post->city}}</span>
                                     </li>
                                     <li>
                                         <span class="text-uppercase">STATE</span>
-                                        <span class="fw-500">null</span>
+                                        <span class="fw-500">{{$post->state}}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="f-left">
-                            <div class="house_features">
+                            <!-- <div class="house_features">
                                 <h2 class="text-xl font-weight-bold textDark text-uppercase mb-0">Features</h2>
                                 <div class="inner_features py-4">
                                     <h4 class="text-lg fw-600">Convenience</h4>
@@ -231,7 +167,7 @@
                                         <li>Off road technologies</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="description mt-3 pt-5 border-top border-gray">
                                 <h2 class="text-xl font-weight-bold textDark text-uppercase">Description</h2>

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use FontLib\TrueType\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -124,6 +124,127 @@ class Car extends Model
             return true;
         }
         return false;
+    }
+
+    public static function getDataList($type='year')
+    {
+        if($type=='year'){
+            $min = 1950;
+            $max = date('Y');
+            $data = range($min, $max);
+        }elseif($type=='condition'){
+            $data = [
+                'New',
+                'Excellent',
+                'Very Good',
+                'Good',
+                'Fair',
+                'For Parts'
+            ];
+        }
+        elseif($type=='sleep'){
+            $data = [
+                '1 Adult',
+                '2 Adult',
+                '3 Adult',
+                '4 Adult',
+                '5 Adult',
+                '6 Adult',
+               
+            ];
+        }
+        elseif($type=='shower/toilet'){
+            $data = [
+                'Yes',
+                'No'
+            ];
+        }
+        elseif($type=='kitchen/appliances'){
+            $data = [
+                'Yes',
+                'No'
+            ];
+        }
+        elseif($type=='windows'){
+            $data = [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                '10'
+            ];
+        }
+        elseif($type=='availability'){
+            $data = [
+                'Ready now',
+                'Contact for lead time',
+            ];
+        }
+        elseif($type=='frame'){
+            $data = [
+                'Metal',
+                'Alloy',
+                'Timber',
+            ];
+        }
+        elseif($type=='budget'){
+            $data = [
+                '$0-$24,999',
+                '$25,000-$49,999',
+                '$50,000-$74,999',
+                '$75,000-$99,999',
+                '$100,000-$124,999',
+                '$125,000-$149,999',
+                '$150,000-$174,999',
+                '$175,000+',
+                
+            ];
+        }
+        elseif($type=='national_shipping'){
+            $data = [
+                'Yes',
+                'No',
+            ];
+        }
+        elseif($type=='make'){
+            $data = [
+                'M 1',
+                'M 2',
+            ];
+        }
+        elseif($type=='model'){
+            $data = [
+                'Model 1',
+                'Model 2',
+            ];
+        }
+       
+       
+    
+        $collection = new Collection();
+        foreach ($data as $key => $item) {
+            $collection->push((object) [
+                'id' => $key,
+                'name' => $item,
+                'value' => str_replace(['$', ','], '', $item)
+            ]);
+        }
+    
+        // Sort the collection in descending order based on the 'year' field
+        $sortedCollection = $collection->sortByDesc('name');
+    
+        return $sortedCollection;
+    }
+
+
+    public static function getCategories()
+    {
+       return Category::get();
     }
 
     // public function getFindMeBuyerAttribute()

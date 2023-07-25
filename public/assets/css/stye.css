@@ -86,6 +86,13 @@ select {
     margin-top: 2.5rem;
 }
 
+.toast-success{
+    background-color: #7cd33d;
+}
+.toast-danger{
+    background-color:red;
+}
+
 
 /* Header */
 .header_first_row>div {
@@ -995,6 +1002,7 @@ svg.svg-inline--fa {
     flex: 0 0 14.28%;
     padding: 0 10px;
     margin: 10px 0;
+    max-width: 100px;
 }
 .upload__img-close {
     width: 24px;
@@ -1411,6 +1419,26 @@ svg.svg-inline--fa {
     width: 30%;
     float: right;
 }
+
+
+
+/* new css */
+
+.loader {
+    border: 5px solid #7cd33d;
+    border-radius: 50%;
+    border-top: 4px solid #007bff; /* Change the color to match your design */
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 @media screen and (min-width: 768px){
     .modal-670{
         max-width: 670px;
@@ -1808,3 +1836,4 @@ svg.svg-inline--fa {
         height: 35px;
     }
 }
+

@@ -15,20 +15,11 @@ class CarImage extends Model
 
     public function getImageAttribute($value = '')
     {
-        $url = 'https://gocarhub.s3.us-east-2.amazonaws.com/images/';
+       // $url = 'https://gocarhub.s3.us-east-2.amazonaws.com/images/';
         if (!empty($value)) 
         {
-            return    $url.$value;
+            return    asset('public/uploads/images/')."/".$value;
 
-            // $imageDate = Carbon::parse($this->created_at);
-            // $oldDate = Carbon::parse('2023-02-16 00:13:03');
-            // if($imageDate->gt($oldDate))
-            // {
-            //  return    $url.$value;
-            // }else{
-            //  return asset('/uploads/images/' . $value);
-
-            // }
         }
 
         return asset('/images/default-profile.jpg');

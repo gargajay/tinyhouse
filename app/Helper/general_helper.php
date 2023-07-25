@@ -3,6 +3,7 @@
 //use Thumbnail;
 
 use App\Models\FcmToken;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
@@ -28,9 +29,16 @@ if (!function_exists('saveGeolocation')) {
     {
         Log::info("enter 1");
         if ($lat && $lng) {
-            $db::insert("UPDATE $table SET geolocation = ST_MakePoint($lng, $lat) WHERE id = '$resourceId'");
-        }
-    }
+        //    $db::insert("UPDATE $table SET geolocation = ST_MakePoint($lng, $lat) WHERE id = '$resourceId'");
+            
+
+
+            DB::table($table)
+            ->where('id', $resourceId)
+            ->update(['geolocation' => DB::raw("ST_GeomFromText('POINT($lng $lat)')")]);
+
+                }
+            }
 }
 
 if (!function_exists('saveDeviceToken')) {
@@ -118,31 +126,23 @@ if (!function_exists('base64_to_image')) {
 if (!function_exists('uploadImages')) {
     function uploadImages($images = [], $destinationPath = '')
     {
+       
         $image_path_data = [];
 
-        $s3url = 'https://gocarhub.s3.us-east-2.amazonaws.com/';
+     //   $s3url = 'https://gocarhub.s3.us-east-2.amazonaws.com/';
 
 
         foreach ($images as $key => $file) {
-            // $fileName = time() . '-' . $file->getClientOriginalName();
-            // $fileName = str_replace(" ", "_", $fileName);
-            // $extension = $file->getClientOriginalExtension();
-            // $file->move($destinationPath, $fileName);
+         
+           // dd()
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $fileName = str_replace(" ", "_", $fileName);
+            $extension = $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
 
              $mime = $file->getClientMimeType();
 
-            $fileName = time() . '-' . $file->getClientOriginalName();
-            $fileName = str_replace(" ", "_", $fileName);
-            $folderpath = 'images/';
-            $filePath = $folderpath.$fileName;
-            $path = Storage::disk('s3')->put($filePath, file_get_contents($file));
-
-            if($path==true){
-                $path = $s3url.$folderpath.$fileName;
-            }else{
-                $path ="";
-            }
-
+         
             $fileType = "";
             if (strstr($mime, "video/")) {
                 $fileType = "video";
