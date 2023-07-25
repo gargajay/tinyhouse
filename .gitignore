@@ -22,7 +22,7 @@ public/admin/images/demo/users/
 public/admin/images/demo/
 public/storage/images/
 public/uploads/category/
-public/uploads/images/
+# public/uploads/images/
 public/uploads/sub_category/
 public/profile/
 
