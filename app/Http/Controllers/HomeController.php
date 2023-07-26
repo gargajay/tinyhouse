@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -244,112 +245,89 @@ class HomeController extends Controller
         return view('user.post', $data);
     }
 
+    public function showSignupForm()
+    {
+        return view('admin.signup');
+    }
+   
+
     public function signup(Request $request)
     {
-        $response = [];
-        $response['success'] = FALSE;
-        $response['status'] = STATUS_BAD_REQUEST;
+    try {
 
+        // For GET requests, show the signup form view
+        if ($request->isMethod('get')) {
+            return $this->showSignupForm();
+        }
+        
+        DB::beginTransaction();
+        
+        $rules = [
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            // 'confirm_password' => 'required|min:6',
+             'accept_term_and_conditons' =>'required'
+            // Add other validation rules for your form fields
+        ];
 
-        try {
+        $validator = Validator::make($request->all(), $rules);
 
-            DB::beginTransaction();
-
-            $rules = [
-                'email' => 'required',
-                'password' => 'required|min:6',
-            ];
-
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                $errorResponse = validation_error_response($validator->errors()->toArray());
-
-                return response()->json($errorResponse, $response['status']);
-            }
-            //dd(App::getLocale());
-
-            $requestData = $request->all();
-            $userObjSocialCheck = User::where('email', $requestData['email'])->where('password', '=', SOCIAL_PASS)->whereNull('deleted_at')->first();
-
-            if ($userObjSocialCheck) {
-                $userObj = $userObjSocialCheck;
-            } else {
-                $userObjSocialCheck = User::where('email', $requestData['email'])->whereNull('deleted_at')->first();
-
-                if ($userObjSocialCheck) {
-                    $response['message'] = __("message.EMAIL_ALREADY_EXIST");
-
-                    return response()->json($response, $response['status']);
-                } else {
-                    $userObj = new User;
-                }
-            }
-            $setting = Setting::where('name', 'subscription')->first();
-            $subscription_expiry_days =  $setting->value ??  30;
-
-            $userObj->first_name = $requestData['first_name'] ?? "";
-            $userObj->last_name = $requestData['last_name'] ?? "";
-            $userObj->name = $userObj->first_name . " " . $userObj->last_name;
-            $userObj->email = strtolower($requestData['email']);
-            $userObj->password = bcrypt($requestData['password']);
-            $userObj->device_token = $requestData['device_token'] ?? "";
-            $userObj->device_type = $requestData['device_type'] ?? "";
-            $userObj->lat = $requestData['latitude']  ?? null;
-            $userObj->lng = $requestData['longitude']  ?? null;
-            $userObj->country_code = $requestData['country_code'] ?? "";
-            $userObj->mobile = $requestData['mobile'] ?? "";
-            $userObj->free_trail_days = $subscription_expiry_days['subscription'] ?? "";
-
-            if (isset($requestData['user_type']) && $requestData['user_type'] != '') {
-                $userObj->user_type = $requestData['user_type'] ?? "";
-            }
-
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
-                $fileName = time() . '-' . $file->getClientOriginalName();
-                $file->move(IMAGE_UPLOAD_PATH, $fileName);
-                $userObj->image = $fileName;
-            }
-            if ($userObj->save()) {
-
-                $userObj->free_trail_expiry_date = Carbon::parse($userObj->created_at)->addDays($userObj->free_trail_days)->format('m-d-Y') ?? "";
-                $userObj->save();
-
-                $latitude = $requestData['latitude'] ?? NULL;
-                $longitude = $requestData['longitude']  ?? NULL;
-                if ($latitude && $longitude) {
-                    saveGeolocation(DB::class, 'users', $userObj->id, $latitude, $longitude);
-                }
-
-                //  saving fcm token for mutliple devices
-                if (!empty($request->device_type) && !empty($request->device_token)) {
-                    saveDeviceToken($userObj, $request->device_type, $request->device_token);
-                }
-            }
-
-            $userId = $userObj->id;
-            $userData = User::where('id', $userId)->first();
-            $userData->access_token = $userData->createToken($userData->id . ' token ')->accessToken;
-            $token = $userData->createToken($userData->id . ' token ')->accessToken;
-            if ($token) {
-                DB::commit();
-            }
-            $response['data'] = $userData;
-            $response['success'] = TRUE;
-            $response['message'] = __("message.REGISTERED_SUCCESSFULLY");
-            $response['status'] = STATUS_OK;
-        } catch (\Exception $e) {
-            DB::rollback();
-            unset($response['data']);
-            $response['message'] = $e->getMessage() . ' Line No ' . $e->getLine() . ' in File' . $e->getFile();
-            Log::error($e->getTraceAsString());
-
-            $response['status'] = STATUS_GENERAL_ERROR;
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        return response()->json($response, $response['status']);
+        $requestData = $request->all();
+        // $setting = Setting::where('name', 'subscription')->first();
+        // $subscription_expiry_days = $setting->value ?? 30;
+
+        $userObj = new User;
+        $userObj->first_name = $requestData['first_name'] ?? "";
+        $userObj->last_name = $requestData['last_name'] ?? "";
+        $userObj->name = $userObj->first_name . " " . $userObj->last_name;
+        $userObj->email = strtolower($requestData['email']);
+        $userObj->password = Hash::make($requestData['password']);
+        $userObj->device_token = $requestData['device_token'] ?? "";
+        $userObj->device_type = $requestData['device_type'] ?? "";
+        $userObj->lat = $requestData['latitude']  ?? '30.00000';
+        $userObj->lng = $requestData['longitude']  ?? '78.0000';
+        $userObj->country_code = $requestData['country_code'] ?? "";
+        $userObj->mobile = $requestData['mobile'] ?? "";
+
+      //  dd($userObj);
+        // Add other fields similar to the API signup
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->move(IMAGE_UPLOAD_PATH, $fileName);
+            $userObj->image = $fileName;
+        }
+
+        if ($userObj->save()) {
+            $latitude = $requestData['latitude'] ?? NULL;
+            $longitude = $requestData['longitude']  ?? NULL;
+            if ($latitude && $longitude) {
+                saveGeolocation(DB::class, 'users', $userObj->id, $latitude, $longitude);
+            }
+
+            Auth::login($userObj);
+            // Perform additional actions if needed
+        }
+
+        DB::commit();
+
+        // Redirect to a success page or wherever you want
+        return redirect('/')->with('message', __("message.REGISTERED_SUCCESSFULLY"));
+    } catch (\Exception $e) {
+        DB::rollback();
+        dd($e);
+        Log::error($e->getTraceAsString());
+
+        // Redirect back with error message if any exception occurs
+        return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
     }
+}
+
 
 
     public function AddCars(Request $request)

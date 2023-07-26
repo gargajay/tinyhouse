@@ -39,6 +39,8 @@ Route::get('/', 'HomeController@index')->name('/');
 Route::get('/search', 'HomeController@search');
 Route::post('/search2', 'HomeController@search2');
 Route::get('/post-detail', 'HomeController@postDetail');
+Route::any('/signup', 'HomeController@signup');
+
 
 
 

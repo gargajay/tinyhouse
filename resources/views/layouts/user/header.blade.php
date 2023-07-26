@@ -30,8 +30,8 @@ $categories = Car::getcategories();
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="location-dot" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline--fa fa-location-dot border-b border-transparent">
                                     <path fill="currentColor" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path>
                                 </svg>
-                                <span class="d-block ml-2 overflow-hidden overflow-ellipsis text-nowrap transition-all">Miami, Florida</span>
-                                <span class="ms-3 ml-xl-1 fw-400 align-items-center text-nowrap">:50 miles</span>
+                                <span class="d-block ml-2 overflow-hidden overflow-ellipsis text-nowrap transition-all">Gold coast, queensland</span>
+                                <span class="ms-3 ml-xl-1 fw-400 align-items-center text-nowrap">:50 km</span>
                             </button>
                         </form>
                     </div>
@@ -78,7 +78,7 @@ $categories = Car::getcategories();
                     <div class="sign_btns">
                         @guest
                         <a href="{{url('/login')}}" class="sign-in-popup-btn">Signin</a>
-                        <a href="#" data-target="#signupModal" data-toggle="modal" class="sign-up-popup-btn">Signup</a>
+                        <a href="{{url('/signup')}}" >Signup</a>
 
                         @else
                         <a href="{{url('create-post')}}" class="text-sm fw-500 border border-theme textGray rounded-pil post_btn">Post a Tiny Home <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-plus ml-2">
@@ -214,14 +214,9 @@ $categories = Car::getcategories();
     </div>
 </header>
 
-<div class="alert alert-common alert-dismissible fade show" role="alert" style="display: none;">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span class="alert-message"></span>
-</div>
 
-<div aria-live="polite" aria-atomic="true" class="position-fixed toast-container" style="top: 1rem; right: 1rem; z-index: 9999;">
+
+<div aria-live="polite" aria-atomic="true" class="position-fixed toast-container" style="top:-100px; right: 1rem; z-index: 9999;">
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="3000">
         <div class="toast-header">
             <strong class="mr-auto">Toast Notification</strong>

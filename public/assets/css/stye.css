@@ -93,6 +93,12 @@ select {
     background-color:red;
 }
 
+.pac-container {
+    background-color: #FFF;
+    z-index: 1051 !important;
+}
+
+
 
 /* Header */
 .header_first_row>div {

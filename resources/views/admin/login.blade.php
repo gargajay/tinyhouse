@@ -7,30 +7,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="content-inner">
-        <!-- <div class="content d-flex justify-content-center align-items-center">
-            <form id="admin-login-form" class="login-form" action="{{ route('login') }}" method="post" autocomplete="off">
-                @csrf
-                <div class="card mb-0 login_box">
-                    <div class="card-body">
-                        <div class="text-center mb-3">
-                            <img src="{{ asset('public/images/logo.png') }}" width="100"style="border-radius:10%"/>
-                            <h5 class="mb-0 sp-des">Login</h5>
-                        </div>
-                        @include('success-error')
-                        <div class="form-group form-group-feedback form-group-feedback-left">
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Email" autocomplete="off">
-                        </div>
-                        <div class="form-group form-group-feedback form-group-feedback-left">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-                        </div>
-                        <p class="text-right"><a href="{{ route('forgot.password') }}">Forgot Password?</a></p>
-                        <div class="form-group mt-45">
-                            <button type="submit" class="btn btn-primary btn-block session-btn">Sign in</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div> -->
+       
 
         <div class="modal1  cusmodal" >
         <div class="modal-dialog modal-dialog-centered modal-670">

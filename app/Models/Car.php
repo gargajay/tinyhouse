@@ -128,14 +128,15 @@ class Car extends Model
 
     public static function getDataList($type='year')
     {
+        $sort ='id';
         if($type=='year'){
+            $sort ='name';
             $min = 1950;
             $max = date('Y');
             $data = range($min, $max);
         }elseif($type=='condition'){
             $data = [
                 'New',
-                'Excellent',
                 'Very Good',
                 'Good',
                 'Fair',
@@ -236,7 +237,7 @@ class Car extends Model
         }
     
         // Sort the collection in descending order based on the 'year' field
-        $sortedCollection = $collection->sortByDesc('name');
+        $sortedCollection = $collection->sortBy($sort);
     
         return $sortedCollection;
     }

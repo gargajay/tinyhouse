@@ -22,7 +22,7 @@
                         <h4 class="text-lg mb-0 fw-600">Filters</h4>
                         <div class="border-bottom border-gray pt-4 pb-2">
                             <div class="form-group">
-                                <h5 class="text-sm fw-600 textDark">Distance<span class="fw-400 ml-2">(50 Miles)</span></h5>
+                                <h5 class="text-sm fw-600 textDark">Distance<span class="fw-400 ml-2">(50 km)</span></h5>
                                 <div class="d-flex align-items-center">
 
                                 </div>
@@ -51,7 +51,7 @@
                                 <h5 class="text-sm fw-600 textDark">Model</h5>
                                 <select name="model" id="" class="form-control filter-input">
                                     <option value="">Select model</option>
-                                    @forelse($sleeps as $listing)
+                                    @forelse($models as $listing)
                                     <option value="{{$listing->name}}">{{$listing->name}}</option>
                                     @empty
                                     @endforelse
