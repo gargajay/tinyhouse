@@ -163,12 +163,31 @@ class HomeController extends Controller
 
         if (isset($requestData['min_price']) && $requestData['min_price'] != '') {
             $filter->put('min_price', $request->min_price);
-            $carObj->where('amount', '>=', $request->min_price);
+            $carObj->where('min_amount', '>=', $requestData['min_price']);
         }
         if (isset($requestData['max_price']) && $requestData['max_price'] != '') {
             $filter->put('max_price', $request->max_price);
-            $carObj->where('amount', '<=', $request->max_price);
+            $carObj->where('amount', '<=', $requestData['max_price']);
         }
+
+        $distanceRaw = null;
+    if (isset($requestData['latitude']) && $requestData['longitude'] != '') {
+        if (isset($requestData['km']) && $requestData['km'] != '') {
+            $search_distance_limit = $requestData['km'];
+        } else {
+            $setting = Setting::where('name', 'search_distance_limit')->first();
+            $search_distance_limit = $setting->value ?? 50;
+        }
+        $userLat = $requestData['latitude'];
+        $userLong = $requestData['longitude']; // Fix typo "Lng" to "lng"
+        $meters = ((int) $search_distance_limit * 1000); // Convert km to meters (1 km = 1000 meters)
+        // Note: In MySQL, the order of latitude and longitude is reversed compared to PostgreSQL.
+        // The function ST_DWithin() in PostgreSQL is similar to ST_Distance() in MySQL.
+        // We use ST_Distance() to filter cars within the specified distance (in meters).
+        $carObj->whereRaw("ST_Distance_Sphere(cars.geolocation, POINT($userLong, $userLat)) <= $meters");
+        $distanceRaw = "ST_Distance_Sphere(cars.geolocation, POINT($userLong, $userLat))";
+    }
+
 
         if (!empty($request->sort)) {
             if ($request->sort == 'recent_first') {
@@ -178,8 +197,10 @@ class HomeController extends Controller
                 //     $carObj->orderBy(DB::raw($distanceRaw), 'asc');
                 // }
             } else if ($request->sort == 'price_lh') {
+                $carObj->orderBy("min_amount", "ASC");
                 $carObj->orderBy("amount", "ASC");
             } else if ($request->sort == 'price_hl') {
+                $carObj->orderBy("min_amount", "DESC");
                 $carObj->orderBy("amount", "DESC");
             } else if ($request->sort == 'model_newest') {
                 $carObj->orderBy("year", "DESC");
@@ -213,11 +234,27 @@ class HomeController extends Controller
 
     public function myHome(Request $request)
     {
-        
         $data['cars']   = Car::where('user_id',Auth()->id())->latest()->get();
-
-        // dd($data['post']);
         return view('user.myhome',$data);
+    }
+
+    public function about(Request $request)
+    {
+        
+        return view('user.about');
+    }
+
+    public function privacy(Request $request)
+    {
+        
+        return view('user.privacy');
+    }
+
+    
+    public function termCondition(Request $request)
+    {
+        
+        return view('user.term-condition');
     }
 
     public function accountSetting(Request $request)

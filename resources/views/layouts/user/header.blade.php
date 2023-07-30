@@ -30,7 +30,7 @@ $categories = Car::getcategories();
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="location-dot" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline--fa fa-location-dot border-b border-transparent">
                                     <path fill="currentColor" d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path>
                                 </svg>
-                                <span class="d-block ml-2 overflow-hidden overflow-ellipsis text-nowrap transition-all">Gold coast, queensland</span>
+                                <span class="d-block ml-2 overflow-hidden overflow-ellipsis text-nowrap transition-all" id="addresid">Gold coast, queensland</span>
                                 <span class="ms-3 ml-xl-1 fw-400 align-items-center text-nowrap">:50 km</span>
                             </button>
                         </form>
@@ -42,9 +42,9 @@ $categories = Car::getcategories();
                                 <path fill="currentColor" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
                             </svg></button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="#" class="dropdown-item">About</a>
-                            <a href="#" class="dropdown-item">Terms & Conditions</a>
-                            <a href="#" class="dropdown-item">Privacy Policy</a>
+                            <a href="{{url('about')}}" class="dropdown-item">About</a>
+                            <a href="{{url('terms-and-conditions')}}" class="dropdown-item">Terms & Conditions</a>
+                            <a href="{{url('privacy-pollcy')}}" class="dropdown-item">Privacy Policy</a>
                         </div>
                     </div>
                     <!-- <div class="btn-group d-none d-md-inline-flex">
@@ -99,7 +99,14 @@ $categories = Car::getcategories();
                     <h3 class="mb-0">Find a Tiny Homes</h3>
                     <ul class="menu_list">
                     @forelse($categories as $listing)
-                    <li><a href="{{url('search')}}" class= "category-filter" data-category="{{$listing->id}}">{{$listing->title}}</a></li>
+                    @php
+                $categoryId = $listing->id;
+                $activeClass = '';
+                if (request()->has('category_id') && request()->query('category_id') == $categoryId) {
+                    $activeClass = 'active';
+                }
+            @endphp
+                    <li><a href="{{url('search?category_id='.$listing->id)}}" class= " {{$activeClass}}" data-category="{{$listing->id}}">{{$listing->title}}</a></li>
                     @empty
 
                     @endforelse

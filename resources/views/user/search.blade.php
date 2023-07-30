@@ -82,9 +82,9 @@
                             <div class="form-group">
                                 <h5 class="text-sm fw-600 textDark">Price Range</h5>
                                 <div class="d-flex align-items-center g-3">
-                                    <input type="number" placeholder="Min" class="form-control">
+                                    <input type="number" id="minPrice" placeholder="Min" class="form-control">
                                     <p class="text-sm fw-400 textGray mb-0 mx-3">to</p>
-                                    <input type="number" placeholder="Max" class="form-control">
+                                    <input type="number" id="maxPrice" placeholder="Max" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                                     <option value="price_lh">Price: Low to High</option>
                                     <option value="price_hl">Price: High to Low</option>
                                     <option value="model_newest">Model: Newest</option>
-                                    <option value="mileage_lowest">Mileage: Lowest</option>
+                                    <!-- <option value="mileage_lowest">Mileage: Lowest</option> -->
                                 </select>
                             </div>
                         </div>
@@ -167,6 +167,10 @@
         $('#loader').hide();
     }
 
+
+
+
+
     function clearFilters() {
         $('input[type="text"]').val(''); // Clear text inputs
         $('select').val(''); // Clear select inputs
@@ -183,10 +187,45 @@
 
         var urlParams = new URLSearchParams(window.location.search);
         var queryParam = urlParams.get('search_term');
+        var category_id = urlParams.get('category_id');
         if (queryParam) {
             formData.search_term = queryParam;
         }
-        
+
+        if (category_id) {
+            formData.category_id = category_id;
+        }
+
+
+        var minPrice = parseInt($('#minPrice').val());
+        var maxPrice = parseInt($('#maxPrice').val());
+
+        // Check if both min and max prices are valid numbers
+        if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+            // Create an object to hold the filter data
+            formData.min_price = minPrice;
+            formData.max_price = maxPrice;
+        }
+
+        var sort = $('#sortby').val();
+        console.log(sort);
+
+
+        if (sort) {
+            formData.sort = sort;
+        }
+
+        var lat = localStorage.getItem('selected_location_lat') ?? '-28.016667' ;
+        var lng = localStorage.getItem('selected_location_lng')  ??  '153.4';
+
+        if (lat && lng) {
+            formData.latitude = lat;
+            formData.longitude = lng;
+        }
+
+
+
+
 
 
         $.ajax({
@@ -205,6 +244,7 @@
     }
     jQuery(document).ready(function($) {
         // Function to show the loader
+
 
 
 
@@ -228,8 +268,8 @@
             event.preventDefault();
             let pageUrl = $(this).attr('href');
             let page = pageUrl.split('page=')[1];
-            let formData = $('#searchForm').serialize();
-            formData += '&page=' + page;
+            var formData = gatherFilterData();
+            formData.page = page;
             performAjaxRequest(formData);
         });
     });
@@ -238,27 +278,30 @@
 </script>
 
 <script>
+    function gatherFilterData() {
+        var filterData = {};
+        $(".filter-input").each(function() {
+            var input = $(this);
+            var name = input.attr("name");
+            var value = input.val();
+            if (input.is(":checkbox")) {
+                value = [];
+                $("input[name='" + name + "']:checked").each(function() {
+                    value.push($(this).val());
+                });
+            }
+            filterData[name] = value;
+        });
+        // Category filter
+        var selectedCategory = $(".category-filter.active").data("category");
+        filterData.category_id = selectedCategory;
+        return filterData;
+    }
+
+
     $(document).ready(function() {
         // Function to gather filter data from active filter inputs
-        function gatherFilterData() {
-            var filterData = {};
-            $(".filter-input").each(function() {
-                var input = $(this);
-                var name = input.attr("name");
-                var value = input.val();
-                if (input.is(":checkbox")) {
-                    value = [];
-                    $("input[name='" + name + "']:checked").each(function() {
-                        value.push($(this).val());
-                    });
-                }
-                filterData[name] = value;
-            });
-            // Category filter
-            var selectedCategory = $(".category-filter.active").data("category");
-            filterData.category_id = selectedCategory;
-            return filterData;
-        }
+
 
         // Event listener for applying filters
         $("#applyFilters").click(function() {
@@ -266,19 +309,22 @@
             performAjaxRequest(filterData);
         });
 
-       
 
-    // Handle click on "Clear All Filter" link
-    $('#clearFilters').on('click', function (event) {
-        event.preventDefault();
-        clearFilters();
 
-        // Clear the category filter
-        $('ul.categories a').removeClass('active');
+        // Handle click on "Clear All Filter" link
+        $('#clearFilters').on('click', function(event) {
+            event.preventDefault();
+            clearFilters();
 
-        // Call the performAjaxRequest function with an empty search query and no filters
-        performAjaxRequest({ search_query: '', filters: {} });
-    });
+            // Clear the category filter
+            $('ul.categories a').removeClass('active');
+
+            // Call the performAjaxRequest function with an empty search query and no filters
+            performAjaxRequest({
+                search_query: '',
+                filters: {}
+            });
+        });
 
         // Event listener for changes in filter inputs
         $(".filter-input").change(function() {
@@ -290,6 +336,17 @@
             e.preventDefault();
             $(".category-filter").removeClass("active");
             $(this).addClass("active");
+            var filterData = gatherFilterData();
+            performAjaxRequest(filterData);
+        });
+
+        $('#sortby, input[name="search_term"]').on('change keyup', function() {
+            var filterData = gatherFilterData();
+            performAjaxRequest(filterData);
+        });
+
+        $('#minPrice, #maxPrice').on('input', function() {
+
             var filterData = gatherFilterData();
             performAjaxRequest(filterData);
         });

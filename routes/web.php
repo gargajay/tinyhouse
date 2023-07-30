@@ -37,6 +37,9 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('/search', 'HomeController@search');
+Route::get('/about', 'HomeController@about');
+Route::get('/privacy-pollcy', 'HomeController@privacy');
+Route::get('/terms-and-conditions', 'HomeController@termCondition');
 Route::post('/search2', 'HomeController@search2');
 Route::get('/post-detail', 'HomeController@postDetail');
 Route::any('/signup', 'HomeController@signup');

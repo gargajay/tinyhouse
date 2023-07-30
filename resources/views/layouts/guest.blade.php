@@ -41,7 +41,7 @@
                         <h4 class="text-xl mb-0 font-weight-bold uppercase">CHOOSE LOCATION</h4>
                         <div class="mt-10 w-100">
                             <input type="text" placeholder="Enter Location" id="location_main" class="rounded-pill bg-transparent backdrop-blur border text-white w-100 py-3 px-4" autocomplete="off">
-                            <button type="button" class="btn-light w-100 mt-3">Continue</button>
+                            <button type="button"  class="btn-light w-100 mt-3" onclick="storeLocationLatLng('location_main')">Continue</button>
                         </div>
                     </div>
                 </div>
@@ -104,6 +104,7 @@
     <script src="{{ asset('public/') }}/assets/js/slick.min.js"></script>
 
     <script src="{{ asset('public/') }}/assets/js/custom.js"></script>
+
     @yield('page_script')
 
    
@@ -136,8 +137,8 @@
 
 
 
-
 <script>
+
   // Function to initialize Autocomplete
   initAutocomplete('location_main');  
   initAutocomplete('locationInput');
@@ -145,6 +146,38 @@
   function initAutocomplete(id) {
     const locationInput = document.getElementById(id);
     const autocomplete = new google.maps.places.Autocomplete(locationInput);
+  }
+
+  // Function to store latitude and longitude in local storage
+  function storeLocationLatLng(id) {
+
+    $.noConflict();
+    const locationInput = document.getElementById(id);
+    const place = locationInput.value;
+    
+    // Perform Geocoding to get the latitude and longitude
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: place }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const lat = results[0].geometry.location.lat();
+        const lng = results[0].geometry.location.lng();
+        const address = results[0].formatted_address;
+
+        console.log(lng);
+        console.log(address);
+
+        // Store latitude and longitude in local storage
+        localStorage.setItem('selected_location_lat', lat);
+        localStorage.setItem('selected_location_lng', lng);
+
+        const addressElement = document.getElementById('addresid'); // Replace 'address_element_id' with the ID of the element where you want to display the address
+        addressElement.textContent = address;
+
+        $('#locationModal').modal('hide');
+
+
+      }
+    });
   }
 
   // Load the Google Maps API and initialize Autocomplete
