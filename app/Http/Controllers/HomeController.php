@@ -408,7 +408,8 @@ class HomeController extends Controller
             }
 
 
-            $resourceObj->amount = $part1 ?? 0;
+            $resourceObj->min_amount = $part1 ?? 0;
+            $resourceObj->amount = $part2s ?? 0;
 
             $resourceObj->description = $requestData['description'] ?? null;
             // $resourceObj->car_type = $request->car_type ? $request->car_type:"shipping";
