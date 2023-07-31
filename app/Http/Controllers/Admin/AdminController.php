@@ -42,6 +42,8 @@ class AdminController extends Controller
             if (!isset($checkUser['user'])) {
                 $message = $checkUser['message'];
 
+               // dd($message);
+
                 return redirect()->route('login')->with('error', $message);
             }
 

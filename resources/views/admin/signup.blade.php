@@ -5,8 +5,21 @@
 </style>
 @endsection
 @section('content')
+
 <div class="content-wrapper">
     <div class="content-inner">
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+<!-- Display success message -->
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 
         <div class="modal1  cusmodal">
