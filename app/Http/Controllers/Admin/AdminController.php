@@ -39,11 +39,11 @@ class AdminController extends Controller
 
             $checkUser = User::webLogin($request->all());
 
-            // if (!isset($checkUser['user'])) {
-            //     $message = $checkUser['message'];
+            if (!isset($checkUser['user'])) {
+                $message = $checkUser['message'];
 
-            //     return redirect()->route('login')->with('error', $message);
-            // }
+                return redirect()->route('login')->with('error', $message);
+            }
 
             if ($checkUser['user']['user_type'] == 'admin') {
                 return redirect()->route('dashboard');
