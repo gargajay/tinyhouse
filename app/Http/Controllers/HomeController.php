@@ -402,14 +402,14 @@ class HomeController extends Controller
             $resourceObj->engine_size = $requestData['engine_size'] ?? null;
             $splitParts = explode("-", $request->amount);
 
-            if (isset($splitParts)) {
-                $part1 = $splitParts[0];
-                $part2 = $splitParts[1];
-            }
+            // if (isset($splitParts)) {
+            //     $part1 = $splitParts[0];
+            //     $part2 = $splitParts[1];
+            // }
 
 
-            $resourceObj->min_amount = $part1 ?? 0;
-            $resourceObj->amount = $part2 ?? 0;
+            // $resourceObj->min_amount = $part1 ?? 0;
+            $resourceObj->amount = $request->amount ?? 0;
 
             $resourceObj->description = $requestData['description'] ?? null;
             // $resourceObj->car_type = $request->car_type ? $request->car_type:"shipping";

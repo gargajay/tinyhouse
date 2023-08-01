@@ -237,7 +237,13 @@ class Car extends Model
         }
     
         // Sort the collection in descending order based on the 'year' field
-        $sortedCollection = $collection->sortBy($sort);
+        if($type=='year'){
+            $sortedCollection = $collection->sortByDesc($sort);
+
+        }else{
+            $sortedCollection = $collection->sortBy($sort);
+
+        }
     
         return $sortedCollection;
     }
