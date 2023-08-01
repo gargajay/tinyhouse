@@ -44,7 +44,7 @@
                             <div class="title_head">
                                 <h3 class="fw-600 textDark mb-0">{{$post->make}} {{$post->model}}</h3>
                                 <p class="text-xl textDark fw-600 mt-1 mb-0">${{$post->make}}</p>
-                                <p class="text-sm textDark fw-500 mt-1 mb-0">Post Code: 20015</p>
+                                <p class="text-sm textDark fw-500 mt-1 mb-0">Post Code: {{$post->zip_code}}</p>
                             </div>
                             <div class="cusbtns py-4">
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#sellerModal" class="btn btn-theme text-base fw-500 rounded-pill">Contact Seller</a>
@@ -76,7 +76,7 @@
                                     </li>
                                  
                                     <li>
-                                        <span class="text-uppercase">STATUS</span>
+                                        <span class="text-uppercase">Amount of windows</span>
                                         <span class="fw-500">{{$post->title}}</span>
                                     </li>
                                     <!-- <li>
@@ -94,6 +94,22 @@
                                     <li>
                                         <span class="text-uppercase">STATE</span>
                                         <span class="fw-500">{{$post->state}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-uppercase">Shower/Toilet</span>
+                                        <span class="fw-500">{{$post->mileage}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-uppercase">Kitchen appliances </span>
+                                        <span class="fw-500">{{$post->car_type}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-uppercase">Availability</span>
+                                        <span class="fw-500">{{$post->availability}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="text-uppercase">Frame Construction</span>
+                                        <span class="fw-500">{{$post->frame_construction}}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -171,7 +187,7 @@
 
                             <div class="description mt-3 pt-5 border-top border-gray">
                                 <h2 class="text-xl font-weight-bold textDark text-uppercase">Description</h2>
-                                <p class="text-base textGray fw-400">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <p class="text-base textGray fw-400">{{$post->description}}</p>
                             </div>
                         </div>
 
