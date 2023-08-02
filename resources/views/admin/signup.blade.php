@@ -8,18 +8,18 @@
 
 <div class="content-wrapper">
     <div class="content-inner">
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
 
-<!-- Display success message -->
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+        <!-- Display success message -->
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
 
 
         <div class="modal1  cusmodal">
@@ -76,17 +76,29 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <input type="text" id="address" name="address1" placeholder="Address" class="rounded-pill bg-transparent backdrop-blur border text-white w-100 py-3 px-4" autocomplete="off">
+                                        @error('addess_line_1')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <div class="terms py-3">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" name="accept_term_and_conditons" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label"  for="customCheck1">I understand the rule &amp; I accept the <a href="#" class="pl-1 text-white">Terms &amp; Conditions.</a></label>
+                                            <label class="custom-control-label" for="customCheck1">I understand the rule &amp; I accept the <a href="#" class="pl-1 text-white">Terms &amp; Conditions.</a></label>
                                         </div>
                                         @error('accept_term_and_conditons')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <button type="submit" id="#continueBtn" class="btn-light w-100 mt-3">Continue</button>
+                                    <input type="hidden" name="state" id="state">
+                                    <input type="hidden" name="zip_code" id="zip_code">
+                                    <input type="hidden" name="country" id="coutry">
+                                    <input type="hidden" name="latitude" id="latitude">
+                                    <input type="hidden" name="longitude" id="longitude">
+
+                                    <button type="submit" id="#continueBtn" onclick="storeLocationLatLng('address')" class="btn-light w-100 mt-3">Continue</button>
 
                                 </form>
                                 <!-- <button type="button" class="btn-light w-100 mt-4">
@@ -96,7 +108,7 @@
                                 <span>Continue With Google</span>
                             </button> -->
                                 <div class="mt-10 w-100 text-center">
-                                    <a href="#" class="cursor-pointer text-white">Already a member? Sign in</a>
+                                    <a href="{{url('/login')}}" class="cursor-pointer text-white">Already a member? Sign in</a>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +150,85 @@
             }
         });
     });
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMJgzQhnqDBw6YL8Zd1rFk8L402-tSw0&libraries=places"></script>
+
+<script>
+    
+    // Function to initialize Autocomplete
+    initAutocomplete('address');
+
+    function initAutocomplete(id) {
+        const locationInput = document.getElementById(id);
+        const autocomplete = new google.maps.places.Autocomplete(locationInput);
+        
+    }
+
+    // Function to store latitude and longitude in local storage
+    function storeLocationLatLng(id) {
+
+        $.noConflict();
+        const locationInput = document.getElementById(id);
+        const place = locationInput.value;
+
+        // Perform Geocoding to get the latitude and longitude
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            address: place
+        }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                const lat = results[0].geometry.location.lat();
+                const lng = results[0].geometry.location.lng();
+                const address = results[0].formatted_address;
+
+                console.log(lng);
+                console.log(address);
+
+                
+
+                // Extract additional address components
+                let zipCode = "";
+                let state = "";
+                let country = "";
+                for (const component of results[0].address_components) {
+                    for (const type of component.types) {
+                        if (type === "postal_code") {
+                            zipCode = component.long_name;
+                        } else if (type === "administrative_area_level_1") {
+                            state = component.long_name;
+                        } else if (type === "country") {
+                            country = component.long_name;
+                        }
+                    }
+                }
+
+                // Store additional address components in local storage (optional)
+                // Store latitude and longitude in local storage
+           
+
+           
+
+                $('#zip_code').val(zipCode);
+                $('#latitude').val(lat);
+                $('#longitude').val(lng);
+                $('#zip_code').val(zipCode);
+                $('#state').val(state);
+                $('#county').val(country);
+
+            
+
+                const addressElement = document.getElementById('addresid'); // Replace 'address_element_id' with the ID of the element where you want to display the address
+                addressElement.textContent = address;
+
+                $('#locationModal').modal('hide');
+
+
+            }
+        });
+    }
+
+    // Load the Google Maps API and initialize Autocomplete
+    google.maps.event.addDomListener(window, 'load', initAutocomplete);
 </script>
 @endsection
 @section('page_style')

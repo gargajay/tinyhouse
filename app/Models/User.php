@@ -250,9 +250,9 @@ class User extends Authenticatable
     public function getImageAttribute($value = '')
     {
         if (!empty($value)) {
-            return asset('/uploads/images/' . $value);
+            return asset('public/uploads/images/' . $value);
         }
-        return asset('/images/default-profile.jpg');
+        return asset('public/images/default-profile.jpg');
     }
 
     public function user_address()

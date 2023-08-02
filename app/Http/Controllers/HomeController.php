@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Car;
 use App\Models\CarImage;
 use App\Models\Setting;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
@@ -163,7 +165,7 @@ class HomeController extends Controller
 
         if (isset($requestData['min_price']) && $requestData['min_price'] != '') {
             $filter->put('min_price', $request->min_price);
-            $carObj->where('min_amount', '>=', $requestData['min_price']);
+            $carObj->where('amount', '>=', $requestData['min_price']);
         }
         if (isset($requestData['max_price']) && $requestData['max_price'] != '') {
             $filter->put('max_price', $request->max_price);
@@ -341,11 +343,30 @@ class HomeController extends Controller
         }
 
         if ($userObj->save()) {
-            $latitude = $requestData['latitude'] ?? NULL;
-            $longitude = $requestData['longitude']  ?? NULL;
-            if ($latitude && $longitude) {
-                saveGeolocation(DB::class, 'users', $userObj->id, $latitude, $longitude);
+
+            $address = Address::where('user_id', $userObj->id)->first();
+            if (!$address) {
+                $address = new Address;
+                $address->user_id = $userObj->id;
             }
+            $address->address1 = $requestData['address1'] ?? '';
+            $address->address2 = $requestData['address2'] ?? '';
+            $address->city = $requestData['city'] ?? '';
+            $address->state = $requestData['state'] ?? '';
+            $address->country = $requestData['country'] ?? '';
+            $address->zip = $requestData['zip'] ?? '';
+            $address->lat = $requestData['latitude']  ?? '';
+            $address->lng = $requestData['longitude']  ??  '';
+
+            if ($address->save()) {
+                $latitude = $requestData['latitude']  ?? NULL;
+                $longitude = $requestData['longitude']  ?? NULL;
+                if ($latitude && $longitude) {
+                    saveGeolocation(DB::class, 'addresses', $address->id, $latitude, $longitude);
+                    saveGeolocation(DB::class, 'users', $address->user_id, $latitude, $longitude);
+                }
+            }
+          
 
             Auth::login($userObj);
             // Perform additional actions if needed
@@ -509,4 +530,104 @@ class HomeController extends Controller
        // return json_encode($response);
        return response()->json($response, $response['status']);
     }
+
+
+    public function getSellerModalContent($sellerId)
+    {
+        // Get the seller data based on the $sellerId
+        $seller = User::find($sellerId);
+
+        $sellercars = Car::where('user_id',$sellerId)->get();
+
+        // Load the view and pass the seller data to the view
+        $html = View::make('user.seller-modal', ['seller' => $seller,'cars'=>$sellercars])->render();
+
+        return response()->json(['html' => $html]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $response = [];
+        $response['success'] = FALSE;
+        $response['status'] = STATUS_BAD_REQUEST;
+
+
+        try {
+            $requestData = $request->all();
+            $rules = [];
+            $userId = $request->user()->id;
+
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                $errorResponse = validation_error_response($validator->errors()->toArray());
+                return response()->json($errorResponse, STATUS_BAD_REQUEST);
+            }
+            $requestData = $request->all();
+            $userId = $request->user()->id;
+            $userObj = User::find($userId);
+            $userObj->first_name = $requestData['first_name'] ?? $userObj->first_name;
+            $userObj->last_name = $requestData['last_name'] ?? $userObj->last_name;
+            $userObj->name = $userObj->first_name . " " . $userObj->last_name;
+            $userObj->country_code = $requestData['country_code'] ?? $userObj->country_code;
+            $userObj->email = $requestData['email'] ?? $userObj->email;
+            $userObj->mobile = $requestData['mobile'] ?? $userObj->mobile;
+            $userObj->lat = $requestData['latitude']  ??  $userObj->lat;
+            $userObj->lng = $requestData['longitude']  ??  $userObj->lng;
+            $userObj->description = $requestData['description'] ??  $userObj->description;
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = time() . '-' . $file->getClientOriginalName();
+                $file->move(IMAGE_UPLOAD_PATH, $fileName);
+                $userObj->image = $fileName ?? $userObj->image;
+            }
+
+
+            if ($userObj->save()) {
+                $latitude = $requestData['latitude']  ?? NULL;
+                $longitude = $requestData['longitude']  ?? NULL;
+
+                if ($latitude && $longitude) {
+                    saveGeolocation(DB::class, 'users', $userObj->id, $latitude, $longitude);
+                }
+            }
+
+            //============= address===========
+
+            $address = Address::where('user_id', $userId)->first();
+            if (!$address) {
+                $address = new Address;
+                $address->user_id = $userObj->id;
+            }
+            $address->address1 = $requestData['address1'] ?? $address->address1;
+            $address->address2 = $requestData['address2'] ?? $address->address2;
+            $address->city = $requestData['city'] ?? $address->city;
+            $address->state = $requestData['state'] ?? $address->state;
+            $address->country = $requestData['country'] ?? $address->country;
+            $address->zip = $requestData['zip'] ?? $address->zip;
+            $address->lat = $requestData['latitude']  ?? $address->lat;
+            $address->lng = $requestData['longitude'] ??  $address->lng;
+            if ($address->save()) {
+                // Save point
+                $latitude = $requestData['latitude'] ?? NULL;
+                $longitude = $requestData['longitude']  ?? NULL;
+
+                if ($latitude && $longitude) {
+                    saveGeolocation(DB::class, 'addresses', $address->id, $latitude, $longitude);
+                    saveGeolocation(DB::class, 'addresses', $address->user_id, $latitude, $longitude);
+                }
+            }
+            $userData = User::where('id', $userId)->with('userAddress')->first();
+            $response['data'] =  $userData;
+            $response['message'] = __("message.PROFILE_UPDATED_SUCCESSFULLY");
+            $response['success'] = TRUE;
+            $response['status'] = STATUS_OK;
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return response()->json($response, $response['status']);
+    }
+
 }

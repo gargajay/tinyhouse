@@ -9,7 +9,7 @@
                         <li class="item">
                             <div class="house_box">
                                 <a href="{{url('post-detail/?id='.$car->id)}}" class="house_img">
-                                    <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
+                                <img src="{{ $car->carImageSingle ? $car->carImageSingle->image:'' }}" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
                                     <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">{{$car->make}}</a></h3>

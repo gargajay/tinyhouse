@@ -43,6 +43,8 @@ Route::get('/terms-and-conditions', 'HomeController@termCondition');
 Route::post('/search2', 'HomeController@search2');
 Route::get('/post-detail', 'HomeController@postDetail');
 Route::any('/signup', 'HomeController@signup');
+Route::get('/get-seller-modal-content/{sellerId}', 'HomeController@getSellerModalContent');
+
 
 
 
@@ -52,6 +54,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-home', 'HomeController@myHome');
     Route::get('/account-setting', 'HomeController@accountSetting');
     Route::post('/add-car', 'HomeController@AddCars');
+    Route::post('/update-profile', 'HomeController@updateProfile');
+
+    
     
 
 

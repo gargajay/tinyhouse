@@ -1,4 +1,12 @@
 @extends('layouts.guest')
+@section('page_style')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-container--default .select2-dropdown {
+        z-index: 2000; /* Adjust the z-index value as needed */
+    }
+</style>
+@endsection
 
 @section('content')
 <div id="bodyWrapper" class="flex-grow-1">
@@ -102,7 +110,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-lg-4">
                                             <label for="">Manufacture</label>
-                                            <select name="make" id="" class="form-control">
+                                            <select name="make" id="makeSelect" class="form-control">
                                                 <option value="">Select Manufacture</option>
                                                 @forelse($makes as $listing)
                                                 <option value="{{$listing->name}}">{{$listing->name}}</option>
@@ -164,7 +172,7 @@
                                         <div class="form-group col-md-6 col-lg-4">
                                             <label for="">Availability <span>(optional)</span></label>
                                             <select name="availability" id="" class="form-control">
-                                                <option value="">Select windows</option>
+                                                <option value="">Select Availability</option>
                                                 @forelse($availability as $listing)
                                                 <option value="{{$listing->name}}">{{$listing->name}}</option>
                                                 @empty
@@ -319,7 +327,29 @@
 @section('page_script')
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        // Initialize Select2
+        $('#makeSelect').select2({
+            tags: true, // Allow manually adding new options
+            createTag: function(params) {
+                // User has entered a new option, create a new tag for it
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true // Add a custom property to identify new options
+                };
+            },
+            insertTag: function(data, tag) {
+                // Insert the new option into the list before the last option (the "Select Manufacture" option)
+                data.push(tag);
+            },
+            // dropdownParent: $("#locationModal") // Set the parent element to avoid issues with modal z-index
+        });
+    });
+</script>
 
 
 <!-- JavaScript to handle "Next" button clicks -->

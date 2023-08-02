@@ -214,6 +214,27 @@
         });
     </script>
 
+    <script>
+
+function showSellerModal(sellerId) {
+    // Make an AJAX request to get the modal content for the specific seller
+    $.ajax({
+        type: 'GET',
+        url: "{{url('/get-seller-modal-content')}}"+"/"+sellerId, // Include the seller ID in the URL
+        success: function(response) {
+            // Append the HTML content to the modal container
+            $('#sellerModal').html(response.html);
+
+            // Show the modal
+            $('#sellerModal').modal('show');
+        },
+        error: function() {
+            console.log('Error occurred while fetching modal content.');
+        }
+    });
+}
+    </script>
+
 
 
 
