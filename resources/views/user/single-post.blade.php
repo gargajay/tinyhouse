@@ -47,7 +47,7 @@
                                 <p class="text-sm textDark fw-500 mt-1 mb-0">Post Code: {{$post->zip_code}}</p>
                             </div>
                             <div class="cusbtns py-4">
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#sellerModal" class="btn btn-theme text-base fw-500 rounded-pill">Contact Seller</a>
+                                <a href="javascript:void(0);" onclick="showSellerModal({{$post->user_id}})" class="btn btn-theme text-base fw-500 rounded-pill">Contact Seller</a>
                                 <!-- <a href="javascript:void(0);" class="btn btn-danger text-base fw-500 rounded-pill">Sold</a> -->
                             </div>
 
@@ -199,148 +199,9 @@
 
     <!-- contact Seller Modal -->
     <div class="modal fade cusmodal" id="sellerModal" tabindex="-1" aria-labelledby="sellerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-670">
-            <div class="modal-content bg-none">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline--fa fa-xmark">
-                            <path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path>
-                        </svg>
-                    </button>
-                    <div class="seller_dtl">
-                        <div class="seller_profile_dtl text-center">
-                            <div class="seller_img text-center mb-3">
-                                <img src="https://pro.gocarhub.app/uploads/images/1685070449-image.png" alt="Seller Profile" class="img-fluid" />
-                            </div>
-                            <h3 class="fw-600 text-theme mb-0">Giancarlo caceres</h3>
-                            <p class="text-base text-gray mb-0">N Federal Hwy, Pompano Beach, FL</p>
-
-                            <div class="seller_btns pt-3">
-                                <a href="#" class="btn btn-theme fw-500 rounded-pill mr-3">Call now</a>
-                                <a href="#" class="btn btn-theme fw-500 rounded-pill">Message</a>
-                            </div>
-                        </div>
-                        <div class="mt-10">
-                            <h4 class="fw-500 text-xl border-bottom-4 border-theme px-3">Offers</h4>
-                            <ul class="houses_list column-3">
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img1.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img2.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img3.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="item">
-                                    <div class="house_box">
-                                        <a href="#" class="house_img">
-                                            <img src="{{ asset('public/') }}/assets/images/house_img4.jpg" alt="House" class="img-fluid" />
-                                        </a>
-                                        <div class="house_content">
-                                            <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">Deck Trailer</a></h3>
-                                            <p class="h-price text-base fw-600 text-theme">$29,914</p>
-                                            <p class="h-view text-sm fw-400 textGray">2 views</p>
-                                            <p class="h-zip text-sm fw-400 textGray">Zip Code: 33064</p>
-                                            <p class="h-post_date text-sm fw-400 textGray">Posted: 07-13-2023</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
+
+
 @endsection
