@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/account-setting', 'HomeController@accountSetting');
     Route::post('/add-car', 'HomeController@AddCars');
     Route::post('/update-profile', 'HomeController@updateProfile');
+    Route::post('/mark-sold', 'HomeController@soldCar');
+    Route::post('/delete-car', 'HomeController@carDelete');
+
+    
 
     
     

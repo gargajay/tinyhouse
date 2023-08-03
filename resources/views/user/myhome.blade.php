@@ -1,4 +1,7 @@
 @extends('layouts.guest')
+@section('page_style')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('content')
 
 
@@ -24,9 +27,15 @@
                                                 </svg>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
+                                            @php
+                                                $deleteUrl = url('delete-car');
+                                                $redUrl = url('my-home');
+                                                $markUrl = url('mark-sold');
+                                            @endphp
                                                 <a href="javascript:void(0);" class="dropdown-item">Edit</a>
-                                                <a href="javascript:void(0);" class="dropdown-item">Mark as Sold</a>
-                                                <a href="javascript:void(0);" class="dropdown-item">Delete</a>
+                                                <a href="javascript:void(0);" onclick="actionItem('{{$markUrl}}','{{$redUrl}}','{{$car->id}}')" class="dropdown-item">Mark as Sold</a>
+                                               
+                                                <a href="javascript:void(0);" onclick="actionItem('{{$deleteUrl}}','{{$redUrl}}','{{$car->id}}')" class="dropdown-item">Delete</a>
                                             </div>
                                         </div>
                                         <a href="#" class="house_img">
@@ -37,7 +46,7 @@
                                             <p class="h-price text-base fw-600 text-theme">${{$car->min_amount}} - ${{$car->amount}}</p>
                                             <p class="h-view text-sm fw-400 textGray">2 views</p>
                                             <p class="h-post_date text-sm fw-400 textGray">Posted: {{$car->created_at->format('Y-m-d')}}</p>
-                                            <a href="#" class="btn btn-theme d-block text-center text-sm w-100 px-4 py-2 mt-2">Send Enquiry</a>
+                                            <a href="#" class="btn btn-theme d-block text-center text-sm w-100 px-4 py-2 mt-2">{{$car->sold_at ? 'Sold':'Unsold' }}</a>
                                         </div>
                                     </div>
                                 </li>
@@ -54,5 +63,74 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('page_script')
+
+<script>
+
+    
+
+    // Submit form Next button click
+
+    function actionItem(url, redirectUrl, id) {
+    if (confirm("Are you sure you want to make this action")) {
+        var formData = new FormData();
+        formData.append("car_id", id);
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                showToast(response.success, response.message);
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+}
+
+    // function deleteCar(id){
+    //   var formData = new FormData();
+    //   formData.append("car_id", id);
+    //   $.ajaxSetup({
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }
+    //         });
+    //   $.ajax({
+    //     url: '{{url("/delete-car")}}', // Replace with the URL where your form should be submitted
+    //     method: "POST",
+    //     data: formData,
+    //     processData: false,
+    //     contentType: false,
+    //     success: function(response) {
+    //    showToast(response.success, response.message);
+    //    window.location.href = '{{url("my-home")}}';
+    //     },
+    //     error: function(xhr, status, error) {
+    //       console.error(error);
+    //     }
+    //   });
+    // }
+    
+
+      
+  
+</script>
 
 @endsection

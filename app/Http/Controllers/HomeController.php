@@ -17,6 +17,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
+use App\Exceptions\GoCarHubException;
+
 
 class HomeController extends Controller
 {
@@ -627,6 +629,66 @@ class HomeController extends Controller
             throw $e;
         }
 
+        return response()->json($response, $response['status']);
+    }
+
+
+    public function soldCar(Request $request)
+    {
+        try {
+
+            $user_id = Auth::user()->id;
+            $rules = [
+                'car_id' => 'required', // 'sold_date' => 'required|date_format:Y-m-d'
+            ];
+
+            // validate input data
+            
+
+            $carData = [];
+            $carData = Car::where('id', $request->car_id)->where('user_id', $user_id)->first();
+            if (!empty($carData)) {
+
+                if($carData->sold_at){
+                    $carData->sold_at= null;
+                }else{
+                    $carData->sold_at = date('Y-m-d');
+
+                }
+                $carData->save();
+            }
+
+            $response['message'] = __("message.SOLD_SUCCESS");
+            $response['success'] = true;
+            $response['status'] = STATUS_OK;
+        } catch (Exception $e) {
+            throw ($e);
+        }
+
+        return response()->json($response, $response['status']);
+    }
+
+    public function carDelete(Request $request)
+    {
+        $response = [];
+        $response['success'] = false;
+
+        try {
+            $requestData = $request->all();
+            $userId = $request->user()->id ?? 0;;
+
+            $carIds = Car::where('id', $requestData['car_id'])->pluck('id');
+            $carImageIds = CarImage::whereIn('car_id', $carIds)->forceDelete();
+                     $carObj = Car::where('id', $carIds)->forceDelete();
+
+
+            $response['message'] = __("message.CAR_DELETED_SUCCESSFULLY");
+            $response['success'] = true;
+            $response['status'] = STATUS_OK;
+        } catch (Exception $e) {
+            throw $e;
+        }
+        DB::commit();
         return response()->json($response, $response['status']);
     }
 
