@@ -39,7 +39,20 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
+        $data['years'] = Car::getDataList('year');
+        $data['makes'] = Car::getDataList('make');
+        $data['models'] = Car::getDataList('model');
         $data['categories'] = Car::getCategories();
+        $data['conditions'] = Car::getDataList('condition');
+        $data['sleeps'] = Car::getDataList('sleep');
+        $data['shower'] = Car::getDataList('shower/toilet');
+        $data['appliances'] = Car::getDataList('kitchen/appliances');
+        $data['windows'] = Car::getDataList('windows');
+        $data['availability'] = Car::getDataList('availability');
+        $data['frame'] = Car::getDataList('frame');
+        $data['budget'] = Car::getDataList('budget');
+        $data['shipping'] = Car::getDataList('national_shipping');
 
         $data['cars']   = Car::latest()->get();
         return view('user.home', $data);

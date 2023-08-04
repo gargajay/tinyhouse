@@ -1452,6 +1452,87 @@ svg.svg-inline--fa {
     display: block;
 }
 
+/* Filter CSS */
+.filter_box .top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.filter_box .top h3 {
+    font-size: 20px;
+    margin-bottom: 0;
+    margin-right: 22px;
+}
+.filter_box .top ul {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.filter_box .top ul li:not(:last-child) {
+    margin-right: 2px;
+}
+.filter_box .top ul li a {
+    display: inline-block;
+    padding: 4px 13px;
+    line-height: normal;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    transition: all .3s ease;
+}
+.filter_box .top ul li a.active {
+    background-color: var(--green);
+    color: #fff;
+}
+.filter_box .filter_form {
+    padding: 25px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 13px rgba(0,0,0,.1);
+    margin-bottom: 30px;
+}
+.filter_box .filter_form .form-control {
+    border: 1px solid #ddd;
+    font-size: 14px;
+    height: 44px;
+    padding: 8px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.filter_box .filter_form .price {
+    display: flex;
+}
+.filter_box .filter_form .price .form-control:not(:last-child) {
+    margin-right: 5px;
+}
+.filter_box .filter_form .clear_btn a {
+    font-size: 14px;
+    color: red;
+}
+.filter_box .show_btn {
+    text-align: center;
+}
+.filter_box .show_btn button {
+    border: 1px solid var(--theme-color);
+    background-color: var(--theme-color);
+    color: #fff;
+    font-weight: 500;
+    padding: 11px 35px;
+    border-radius: 40px;
+    margin-bottom: 10px;
+}
+.filter_box .show_btn p {
+    font-size: 14px;
+    font-style: italic;
+    opacity: .8;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

@@ -122,6 +122,16 @@
 
 
     <script>
+
+function clearFilters() {
+        $('input[type="text"]').val(''); // Clear text inputs
+    $('select').val(''); // Clear select inputs
+
+    // Clear query parameters from URL
+    var newUrl = window.location.origin + window.location.pathname;
+    history.replaceState({}, document.title, newUrl);
+    }
+    
         function showToast(isSuccess, message) {
             // Get the toast container element
             var type = 'success';
@@ -191,6 +201,8 @@
                 }
             });
         }
+
+
 
         // Load the Google Maps API and initialize Autocomplete
         google.maps.event.addDomListener(window, 'load', initAutocomplete);

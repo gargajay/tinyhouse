@@ -171,10 +171,7 @@
 
 
 
-    function clearFilters() {
-        $('input[type="text"]').val(''); // Clear text inputs
-        $('select').val(''); // Clear select inputs
-    }
+   
 
     function performAjaxRequest(formData) {
         showLoader(); // Show the loader when AJAX request starts
@@ -188,13 +185,18 @@
         var urlParams = new URLSearchParams(window.location.search);
         var queryParam = urlParams.get('search_term');
         var category_id = urlParams.get('category_id');
-        if (queryParam) {
-            formData.search_term = queryParam;
-        }
+        // alert(1);
+        urlParams.forEach(function(value, key) {
+            // alert(key);
+            formData[key] = value;
+        });
+        // if (queryParam) {
+        //     formData.search_term = queryParam;
+        // }
 
-        if (category_id) {
-            formData.category_id = category_id;
-        }
+        // if (category_id) {
+        //     formData.category_id = category_id;
+        // }
 
 
         var minPrice = parseInt($('#minPrice').val());
