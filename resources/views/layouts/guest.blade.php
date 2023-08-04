@@ -108,6 +108,8 @@
 
     <!-- Sign up Modal -->
 
+
+
     <script src="{{ asset('public/') }}/assets/js/jquery.slim.min.js"></script>
     <script src="{{ asset('public/') }}/assets/js/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -115,23 +117,24 @@
     <script src="{{ asset('public/') }}/assets/js/bootstrap.min.js"></script>
     <script src="{{ asset('public/') }}/assets/js/slick.min.js"></script>
 
+
     <script src="{{ asset('public/') }}/assets/js/custom.js"></script>
+
 
     @yield('page_script')
 
 
 
     <script>
+        function clearFilters() {
+            $('input[type="text"]').val(''); // Clear text inputs
+            $('select').val(''); // Clear select inputs
 
-function clearFilters() {
-        $('input[type="text"]').val(''); // Clear text inputs
-    $('select').val(''); // Clear select inputs
+            // Clear query parameters from URL
+            var newUrl = window.location.origin + window.location.pathname;
+            history.replaceState({}, document.title, newUrl);
+        }
 
-    // Clear query parameters from URL
-    var newUrl = window.location.origin + window.location.pathname;
-    history.replaceState({}, document.title, newUrl);
-    }
-    
         function showToast(isSuccess, message) {
             // Get the toast container element
             var type = 'success';
@@ -171,7 +174,6 @@ function clearFilters() {
         // Function to store latitude and longitude in local storage
         function storeLocationLatLng(id) {
 
-            $.noConflict();
             const locationInput = document.getElementById(id);
             const place = locationInput.value;
 
@@ -196,6 +198,20 @@ function clearFilters() {
                     addressElement.textContent = address;
 
                     $('#locationModal').modal('hide');
+
+
+                    $('#location_main').val("");
+
+                    
+
+
+
+                    performAjaxRequest({
+                        search_query: '',
+                        page: 1
+                    });
+
+
 
 
                 }
@@ -227,24 +243,103 @@ function clearFilters() {
     </script>
 
     <script>
+          function showLoader() {
+        $('#loader').show();
+    }
 
-function showSellerModal(sellerId) {
-    // Make an AJAX request to get the modal content for the specific seller
-    $.ajax({
-        type: 'GET',
-        url: "{{url('/get-seller-modal-content')}}"+"/"+sellerId, // Include the seller ID in the URL
-        success: function(response) {
-            // Append the HTML content to the modal container
-            $('#sellerModal').html(response.html);
+    // Function to hide the loader
+    function hideLoader() {
+        $('#loader').hide();
+    }
+        function performAjaxRequest(formData) {
+            showLoader(); // Show the loader when AJAX request starts
 
-            // Show the modal
-            $('#sellerModal').modal('show');
-        },
-        error: function() {
-            console.log('Error occurred while fetching modal content.');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var queryParam = urlParams.get('search_term');
+            var category_id = urlParams.get('category_id');
+            // alert(1);
+            urlParams.forEach(function(value, key) {
+                // alert(key);
+                formData[key] = value;
+            });
+            // if (queryParam) {
+            //     formData.search_term = queryParam;
+            // }
+
+            // if (category_id) {
+            //     formData.category_id = category_id;
+            // }
+
+
+            var minPrice = parseInt($('#minPrice').val());
+            var maxPrice = parseInt($('#maxPrice').val());
+
+            // Check if both min and max prices are valid numbers
+            if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+                // Create an object to hold the filter data
+                formData.min_price = minPrice;
+                formData.max_price = maxPrice;
+            }
+
+            var sort = $('#sortby').val();
+            console.log(sort);
+
+
+            if (sort) {
+                formData.sort = sort;
+            }
+
+            var lat = localStorage.getItem('selected_location_lat') ?? '-28.016667';
+            var lng = localStorage.getItem('selected_location_lng') ?? '153.4';
+
+            if (lat && lng) {
+                formData.latitude = lat;
+                formData.longitude = lng;
+            }
+
+
+
+
+
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url("/search2") }}',
+                data: formData,
+                success: function(response) {
+                    hideLoader(); // Hide the loader when AJAX request is successful
+                    $('#searchResults').html(response);
+                },
+                error: function() {
+                    hideLoader(); // Hide the loader on AJAX request error
+                    $('#searchResults').html('<p>Error occurred while processing the request.</p>');
+                }
+            });
         }
-    });
-}
+
+        function showSellerModal(sellerId) {
+            // Make an AJAX request to get the modal content for the specific seller
+            $.ajax({
+                type: 'GET',
+                url: "{{url('/get-seller-modal-content')}}" + "/" + sellerId, // Include the seller ID in the URL
+                success: function(response) {
+                    // Append the HTML content to the modal container
+                    $('#sellerModal').html(response.html);
+
+                    // Show the modal
+                    $('#sellerModal').modal('show');
+                },
+                error: function() {
+                    console.log('Error occurred while fetching modal content.');
+                }
+            });
+        }
     </script>
 
 
