@@ -536,7 +536,7 @@ jQuery(document).ready(function ($) {
       e.preventDefault();
       var form = $("#myForm")[0];
       var formData = new FormData(form);
-      $(this).prop("disabled", true);
+      $("#btnlast").prop("disabled", true);
       // You can also add any additional data to the formData if needed
       // formData.append("some_key", "some_value");
 
@@ -558,6 +558,11 @@ jQuery(document).ready(function ($) {
         
 
        //   $("#msg").text(response.message);
+
+       if(!response.success){
+        $("#btnlast").prop("disabled", false);
+
+       }
        showToast(response.success, response.message);
 
        if(response.success){
