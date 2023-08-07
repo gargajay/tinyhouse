@@ -16,7 +16,7 @@ use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes,Billable;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
 
 
