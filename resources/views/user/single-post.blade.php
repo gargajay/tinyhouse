@@ -43,7 +43,7 @@
                         <div class="hourse_right_dtl f-right">
                             <div class="title_head">
                                 <h3 class="fw-600 textDark mb-0">{{$post->make}} {{$post->model}}</h3>
-                                <p class="text-xl textDark fw-600 mt-1 mb-0">${{$post->make}}</p>
+                                <p class="text-xl textDark fw-600 mt-1 mb-0">${{$post->amount}}</p>
                                 <p class="text-sm textDark fw-500 mt-1 mb-0">Post Code: {{$post->zip_code}}</p>
                             </div>
                             <div class="cusbtns py-4">
