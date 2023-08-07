@@ -108,7 +108,7 @@
                                                 @endforelse
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-6 col-lg-4">
+                                        <div class="form-group  cus_select col-md-6 col-lg-4">
                                             <label for="">Manufacture</label>
                                             <select name="make" id="makeSelect" class="form-control">
                                                 <option value="">Select Manufacture</option>
@@ -559,7 +559,8 @@ jQuery(document).ready(function ($) {
        //   $("#msg").text(response.message);
        showToast(response.success, response.message);
 
-       window.location.href = '{{url("my-home")}}';
+      // var data = response.data;
+       window.location.href = '{{url("buy-subscription?car_id=")}}' + response.car_id;
           // You can redirect or display a success message
         },
         error: function(xhr, status, error) {

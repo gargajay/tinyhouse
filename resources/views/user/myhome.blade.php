@@ -32,10 +32,13 @@
                                                 $redUrl = url('my-home');
                                                 $markUrl = url('mark-sold');
                                             @endphp
-                                                <a href="javascript:void(0);" class="dropdown-item">Edit</a>
+                                                <!-- <a href="javascript:void(0);" class="dropdown-item">Edit</a> -->
                                                 <a href="javascript:void(0);" onclick="actionItem('{{$markUrl}}','{{$redUrl}}','{{$car->id}}')" class="dropdown-item">Mark as Sold</a>
                                                
                                                 <a href="javascript:void(0);" onclick="actionItem('{{$deleteUrl}}','{{$redUrl}}','{{$car->id}}')" class="dropdown-item">Delete</a>
+                                                <a href="{{url('buy-subscription?car_id='.$car->id)}}" class="dropdown-item">Manage subscription</a>
+
+
                                             </div>
                                         </div>
                                         <a href="#" class="house_img">

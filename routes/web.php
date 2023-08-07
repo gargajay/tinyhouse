@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\VehicleModelController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\HomeController as ControllersHomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubscriptionController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/update-profile', 'HomeController@updateProfile');
     Route::post('/mark-sold', 'HomeController@soldCar');
     Route::post('/delete-car', 'HomeController@carDelete');
+    Route::get('/buy-subscription', ['as'=>'home','uses'=>'SubscriptionController@index'])->name('subscription.create');
+    Route::post('order-post', ['as'=>'order-post','uses'=>'SubscriptionController@orderPost']);
 
     
 
@@ -121,7 +124,7 @@ Route::group(['namespace' => 'Admin'], function () {
         Route::get('delete-vehicle/{id}', [CarController::class, 'delete'])->name('vehicle.delete');
 
         //subscription 
-        Route::resource('subscription', 'SubscriptionController');
+        // Route::resource('subscription', 'SubscriptionController');
         Route::get('delete-subscription/{id}', 'SubscriptionController@delete')->name('subscription.delete');
         Route::post('import', 'AdminController@import')->name('import');
 

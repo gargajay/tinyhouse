@@ -92,15 +92,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('subscription.index') }}"
-                        class="nav-link {{ request()->is('subscription*') ? 'active' : '' }}">
-                        <i class="icon-credit-card2" aria-hidden="true"></i>
-                        <span>
-                            Subscriptions
-                        </span>
-                    </a>
-                </li>
+           
 
                 <li class="nav-item">
                     <a href="{{ route('payments') }}"

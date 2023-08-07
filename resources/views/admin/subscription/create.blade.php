@@ -14,7 +14,7 @@
 
                 <div class="header-elements d-none">
                     <div class="d-flex justify-content-center">
-                        <a href="{{ route('subscription.index') }}" type="button" class="btn btn-primary">Back</a>
+                        <!-- <a href="{{ route('subscription.index') }}" type="button" class="btn btn-primary">Back</a> -->
                     </div>
                 </div>
             </div>

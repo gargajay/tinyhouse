@@ -458,8 +458,8 @@ class HomeController extends Controller
             $resourceObj->find_me_buyer = $findme;
             $resourceObj->post_ad_number = generate_string(''); // uniqid('post_', true);
 
-            $resourceObj->lat = $requestData['lat'] ?? ($requestData['latitude'] ?? '26.1128562');
-            $resourceObj->lng = $requestData['lng'] ?? ($requestData['longitude'] ?? '-80.1426190');
+            $resourceObj->lat = $requestData['lat'] ?? ($requestData['latitude'] ?? '-28.016666');
+            $resourceObj->lng = $requestData['lng'] ?? ($requestData['longitude'] ?? '153.399994');
             $resourceObj->city = $requestData['city'] ?? null;
             $resourceObj->state = $requestData['state'] ?? null;
             $resourceObj->condition = $requestData['condition'] ?? null;
@@ -526,7 +526,7 @@ class HomeController extends Controller
             $status = STATUS_OK;
             $cars = Car::where('id', $resourceObj->id)->with('carImages')->first();
            
-            $response['data'] = [];
+            $response['car_id'] = $cars->id;
 
             $response['message'] = $msg;
             $response['success'] = $success;
