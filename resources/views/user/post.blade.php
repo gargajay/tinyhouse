@@ -536,6 +536,7 @@ jQuery(document).ready(function ($) {
       e.preventDefault();
       var form = $("#myForm")[0];
       var formData = new FormData(form);
+      $(this).prop("disabled", true);
       // You can also add any additional data to the formData if needed
       // formData.append("some_key", "some_value");
 
@@ -559,8 +560,12 @@ jQuery(document).ready(function ($) {
        //   $("#msg").text(response.message);
        showToast(response.success, response.message);
 
+       if(response.success){
+        window.location.href = '{{url("buy-subscription?car_id=")}}' + response.car_id;
+
+       }
+
       // var data = response.data;
-       window.location.href = '{{url("buy-subscription?car_id=")}}' + response.car_id;
           // You can redirect or display a success message
         },
         error: function(xhr, status, error) {
