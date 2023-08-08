@@ -77,24 +77,25 @@
                                  
                                     <li>
                                         <span class="text-uppercase">Amount of windows</span>
-                                        <span class="fw-500">{{$post->title}}</span>
+                                        <span class="fw-500">{{$post->title_status}}</span>
                                     </li>
-                                    <!-- <li>
-                                        <span class="text-uppercase">CAR FUEL TYPE</span>
-                                        <span class="fw-500">Electric</span>
-                                    </li> -->
+                                    
                                     <li>
                                         <span class="text-uppercase">Sleeps</span>
-                                        <span class="fw-500">{{$post->engine}}</span>
+                                        <span class="fw-500">{{$post->engine_size}}</span>
                                     </li>
                                     <li>
+                                        <span class="text-uppercase">Address<span>
+                                        <span class="fw-500">{{$post->car_address}}</span>
+                                    </li>
+                                    <!-- <li>
                                         <span class="text-uppercase">CITY</span>
                                         <span class="fw-500">{{$post->city}}</span>
                                     </li>
                                     <li>
                                         <span class="text-uppercase">STATE</span>
                                         <span class="fw-500">{{$post->state}}</span>
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <span class="text-uppercase">Shower/Toilet</span>
                                         <span class="fw-500">{{$post->mileage}}</span>

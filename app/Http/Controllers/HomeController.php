@@ -54,7 +54,7 @@ class HomeController extends Controller
         $data['budget'] = Car::getDataList('budget');
         $data['shipping'] = Car::getDataList('national_shipping');
 
-        $data['cars']   = Car::latest()->get();
+        $data['cars']   = Car::where('expiry_date','>=',Carbon::now()->format('Y-m-d'))->latest()->get();
         return view('user.home', $data);
     }
 
@@ -463,8 +463,15 @@ class HomeController extends Controller
             $resourceObj->city = $requestData['city'] ?? null;
             $resourceObj->state = $requestData['state'] ?? null;
             $resourceObj->condition = $requestData['condition'] ?? null;
-            $resourceObj->mileage = $request->mileage ? str_replace(',', '', $requestData['mileage']) : "";
-            $resourceObj->color = $requestData['color'] ?? null;
+            $resourceObj->mileage = $request->mileage;
+            $resourceObj->availability = $requestData['availability'] ?? null;
+            $resourceObj->frame_construction = $requestData['frame_construction'] ?? null;
+            $resourceObj->national_shipping = $requestData['national_shipping'] ?? null;
+
+            
+
+
+            
             // $resourceObj->exterior_color = $requestData['exterior_color'] ?? null;
 
             if (!empty($request->car_address)) {

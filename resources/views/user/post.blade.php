@@ -118,9 +118,9 @@
                                                 @endforelse
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-6 col-lg-4">
+                                        <div class="form-group  cus_select col-md-6 col-lg-4">
                                             <label for="">Model</span></label>
-                                            <select name="model" id="" class="form-control">
+                                            <select name="model" id="makeSelect2" class="form-control">
                                                 <option value="">Select Model</option>
                                                 @forelse($models as $listing)
                                                 <option value="{{$listing->name}}">{{$listing->name}}</option>
@@ -160,7 +160,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-lg-4">
                                             <label for="">Amount of windows <span>(optional)</span></label>
-                                            <select name="title" id="" class="form-control">
+                                            <select name="title_status" id="" class="form-control">
                                                 <option value="">Select windows</option>
                                                 @forelse($windows as $listing)
                                                 <option value="{{$listing->name}}">{{$listing->name}}</option>
@@ -333,6 +333,22 @@
     $(document).ready(function() {
         // Initialize Select2
         $('#makeSelect').select2({
+            tags: true, // Allow manually adding new options
+            createTag: function(params) {
+                // User has entered a new option, create a new tag for it
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true // Add a custom property to identify new options
+                };
+            },
+            insertTag: function(data, tag) {
+                // Insert the new option into the list before the last option (the "Select Manufacture" option)
+                data.push(tag);
+            },
+            // dropdownParent: $("#locationModal") // Set the parent element to avoid issues with modal z-index
+        });
+        $('#makeSelect2').select2({
             tags: true, // Allow manually adding new options
             createTag: function(params) {
                 // User has entered a new option, create a new tag for it

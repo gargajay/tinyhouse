@@ -16,7 +16,7 @@
 
                             <div class="seller_btns pt-3">
                                 <a href="tel:{{$seller->mobile}}" class="btn btn-theme fw-500 rounded-pill mr-3">Call now</a>
-                                <!-- <a href="#" class="btn btn-theme fw-500 rounded-pill">Message</a> -->
+                                <a href="mailto:{{$seller->email}}" class="btn btn-theme fw-500 rounded-pill">Email</a>
                             </div>
                         </div>
                         <div class="mt-10">
