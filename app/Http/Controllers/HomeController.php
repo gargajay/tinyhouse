@@ -115,7 +115,7 @@ class HomeController extends Controller
                 $sevenDaysBackDate = Carbon::now()->subDays(7)->format('Y-m-d');
                 $query->whereNull('sold_at')
                     ->orWhere('sold_at', '>=', $sevenDaysBackDate);
-            })->where('expiry_date'>=Carbon::now()->format('Y-m-d'));
+            })->where('expiry_date','>=',Carbon::now()->format('Y-m-d'));
         if (isset($requestData['search_term']) && $requestData['search_term'] != '') {
             $filter->put('search_term', $request->search_term);
             $lower = strtolower($request->search_term);

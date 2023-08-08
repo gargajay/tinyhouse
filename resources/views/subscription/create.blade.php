@@ -131,8 +131,10 @@
     const stripe = Stripe('{{ env('STRIPE_KEY') }}')
   
     const elements = stripe.elements()
-    const cardElement = elements.create('card')
-  
+    const cardElement = elements.create('card', {
+        hidePostalCode: true // Hide the postal code field
+    });
+    
     cardElement.mount('#card-element')
   
     const form = document.getElementById('payment-form')
