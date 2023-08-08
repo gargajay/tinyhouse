@@ -11,11 +11,11 @@
                             <link rel="stylesheet" href="{{ asset('public/') }}/assets/css/slick-theme.css" />
                             <div class="gallery mb-4 mb-xl-5">
                                
-                                <div class="house_gallery">
+                                <div class="house_gallery main-slider">
                                     @if(isset($post->cars_images) && $post->cars_images->IsNotEmpty())
                                     @foreach($post->cars_images as $image)
                                     <div>
-                                        <div class="house_img">
+                                        <div class="house_img slide" >
                                             <img src="{{ $image->image }}" alt="House" class="img-fluid" />
                                         </div>
                                     </div>
