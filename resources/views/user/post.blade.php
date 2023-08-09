@@ -1,6 +1,8 @@
 @extends('layouts.guest')
 @section('page_style')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
 <style>
     .select2-container--default .select2-dropdown {
         z-index: 2000; /* Adjust the z-index value as needed */
@@ -52,7 +54,7 @@
                                                 </svg>
                                                 <span class="fw-500 textDark"><span class="text-theme text-underline ml-2">browse</span></span>
                                             </span>
-                                            <input type="file" multiple="" name="file[]" data-max_length="20" class="upload__inputfile">
+                                            <input type="file" multiple="" name="file[]" data-max_length="6" class="upload__inputfile">
                                         </label>
                                     </div>
                                     <div class="upload__img-wrap " id="imagePreview"></div>
@@ -237,7 +239,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Description <span>(optional)</span></label>
-                                        <textarea name="description" id="description" placeholder="" rows="4" class="form-control" spellcheck="false"></textarea>
+                                        <textarea name="description" id="editor" placeholder="" rows="4" class="form-control" spellcheck="false"></textarea>
                                     </div>
                                     <!-- <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="findme">
@@ -366,10 +368,13 @@
         });
     });
 </script>
-
+<script>
+    CKEDITOR.replace('editor');
+</script>
 
 <!-- JavaScript to handle "Next" button clicks -->
 <script>
+
     $(document).ready(function() {
 
         
@@ -390,6 +395,11 @@
 
             // Show the total number of selected files (for debugging)
             console.log("Total selected files:", selectedFiles.length);
+
+            if(selectedFiles.length>6){
+                alert("maximum file upload limit is 6 images");
+                return false;
+            }
 
             // Call the validation function
             // if (validateFirstTab()) {
@@ -527,6 +537,7 @@
 
         $('body').on('click', ".upload__img-close", function(e) {
             var file = $(this).parent().data("file");
+            console.log(imgArray);
             for (var i = 0; i < imgArray.length; i++) {
                 if (imgArray[i].name === file) {
                     imgArray.splice(i, 1);
@@ -546,23 +557,16 @@ jQuery(document).ready(function ($) {
 
     // Submit form Next button click
     $("#btnlast").on("click", function(e) {
-
-      
-        
       e.preventDefault();
       var form = $("#myForm")[0];
       var formData = new FormData(form);
       $("#btnlast").prop("disabled", true);
-      // You can also add any additional data to the formData if needed
-      // formData.append("some_key", "some_value");
-
-    //   $.ajaxSetup({
-    //             headers: {
-    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //             }
-    //         });
-
-      // Submit the form using AJAX
+      // Retrieve CKEditor content
+    var ckEditorContent = CKEDITOR.instances.editor.getData();
+    
+    // Append CKEditor content to FormData
+    formData.append('description', ckEditorContent);
+      
       $.ajax({
         url: '{{url("/add-car")}}', // Replace with the URL where your form should be submitted
         method: "POST",

@@ -85,7 +85,7 @@
                                         <span class="fw-500">{{$post->engine_size}}</span>
                                     </li>
                                     <li>
-                                        <span class="text-uppercase">Address<span>
+                                        <span class="text-uppercase">Address</span>
                                         <span class="fw-500">{{$post->car_address}}</span>
                                     </li>
                                     <!-- <li>
@@ -188,7 +188,7 @@
 
                             <div class="description mt-3 pt-5 border-top border-gray">
                                 <h2 class="text-xl font-weight-bold textDark text-uppercase">Description</h2>
-                                <p class="text-base textGray fw-400">{{$post->description}}</p>
+                                <p class="text-base textGray fw-400">{!! $post->description !!}</p>
                             </div>
                         </div>
 

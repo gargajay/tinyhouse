@@ -405,6 +405,8 @@ class HomeController extends Controller
 
     public function AddCars(Request $request)
     {
+
+        //dd($request->all());
         $response = [];
         $response['success'] = FALSE;
         $response['status'] = STATUS_BAD_REQUEST;
@@ -467,6 +469,7 @@ class HomeController extends Controller
             $resourceObj->availability = $requestData['availability'] ?? null;
             $resourceObj->frame_construction = $requestData['frame_construction'] ?? null;
             $resourceObj->national_shipping = $requestData['national_shipping'] ?? null;
+            $resourceObj->car_type = $requestData['car_type'] ?? null;
 
             
 

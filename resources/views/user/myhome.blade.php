@@ -41,7 +41,7 @@
 
                                             </div>
                                         </div>
-                                        <a href="#" class="house_img">
+                                        <a href="{{url('post-detail?id='.$car->id)}}" class="house_img">
                                             <img src="{{$car->carImageSingle ? $car->carImageSingle->image:''}}" alt="House" class="img-fluid" />
                                         </a>
                                         <div class="house_content">
