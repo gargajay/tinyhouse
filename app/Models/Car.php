@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Car extends Model
 {
@@ -212,17 +213,17 @@ class Car extends Model
                 'No',
             ];
         }
-        elseif($type=='make'){
-            $data = [
-                'M 1',
-                'M 2',
-            ];
+        elseif($type=='make')
+        {
+           
+        $data = Car::select(DB::raw('LOWER(make) AS make_lower'))
+                    ->groupBy('make_lower')
+                    ->pluck('make_lower');
         }
         elseif($type=='model'){
-            $data = [
-                'Model 1',
-                'Model 2',
-            ];
+            $data = Car::select(DB::raw('LOWER(model) AS model_lower'))
+            ->groupBy('model_lower')
+            ->pluck('model_lower');
         }
        
        
@@ -231,7 +232,7 @@ class Car extends Model
         foreach ($data as $key => $item) {
             $collection->push((object) [
                 'id' => $key,
-                'name' => $item,
+                'name' => ucwords($item),
                 'value' => str_replace(['$', ','], '', $item)
             ]);
         }
