@@ -38,14 +38,32 @@ class SubscriptionController extends Controller
                     $stripeCustomer = $user->createAsStripeCustomer();
                 }
             
-               $sub =  $user->newSubscription($request->car_id, config("services.stripe.plans.$plan"))->create($request->token);
+               $sub =  $user->newSubscription($request->car_id, $request->plan)->create($request->token);
 
                if($sub)
                {
                 $currentDate = now();
 
+
+                if($request->plan == 'price_1NdjsWC2kWkG1GrQNebWbyo2'){
+                    $newDate = $currentDate->addDays(30);
+
+                }elseif($request->plan == 'price_1NdjtlC2kWkG1GrQXqfGoCym'){
+
+                    $newDate = $currentDate->addDays(90);
+
+                }elseif($request->plan == 'price_1NdjucC2kWkG1GrQjvn7ogVv'){
+
+                    $newDate = $currentDate->addDays(180);
+
+                }
+                elseif($request->plan == 'price_1NdjwIC2kWkG1GrQVmj494Vb'){
+
+                    $newDate = $currentDate->addYear();
+
+                }
+
                 // Add 30 days to the current date
-                $newDate = $currentDate->addDays(30);
 
                 // Format the new date as 'Y-m-d' (Year-Month-Day)
                 $newDateString = $newDate->format('Y-m-d');

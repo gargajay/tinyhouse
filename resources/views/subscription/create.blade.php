@@ -40,6 +40,8 @@
             </nav>
             <div class="post_house_inner">
                 @php
+
+                $plans =  config("services.stripe.plans");
                     $expirationDate = \Carbon\Carbon::parse($car->expiry_date);
                     // Get today's date
                     $today = \Carbon\Carbon::now();
@@ -52,7 +54,7 @@
         
                 <div class="card">
                 <div class="card-header">
-                Your tiny home is currently saved in draft mode and is not visible to users. Please make a payment to have it appear in the search list. You will be charged ${{ config("services.stripe.plans.price") }} for the Monthly Plan.
+                Your tiny home is currently saved in draft mode and is not visible to users. Please make a payment to have it appear in the search list. Please choose subscription  plan below.
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -65,7 +67,19 @@
                         @csrf
 
                         <input type="hidden" name="car_id" value="{{$car->id}}">
-                        <input type="hidden" name="plan" value="basic">
+                      <!-- <input type="hidden" name="plan" value="basic"> -->
+
+
+                        <div class="form-group">
+                            <label for="">Choose Plan<label>
+                                <select name="plan" id="" class="form-control">
+                                    @foreach($plans as $plan)
+                                        <option value="{{$plan['plan']}}">{{$plan['name']}}</option>
+                                    @endforeach
+                                </select>
+                        </div>
+
+
 
                         <div class="form-group">
                                     <label for="">Name</label>

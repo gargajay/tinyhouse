@@ -33,8 +33,27 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
         'plans' => [
-            'basic' => 'price_1NcGNVC2kWkG1GrQCzQqqJzj',
-            'price' =>'8.37'
+            [
+            'plan' => 'price_1NdjsWC2kWkG1GrQNebWbyo2',
+            'name' => '30 day ad - $50 + GST',
+            'price' =>'55'
+            ],
+            [
+                'plan' => 'price_1NdjtlC2kWkG1GrQXqfGoCym',
+                'name' => '90 day ad - $150 + GST',
+                'price' =>'165'
+                ],
+            [
+                'plan' => 'price_1NdjucC2kWkG1GrQjvn7ogVv',
+                'name' => '180 day ad - $300 + GST',
+                'price' =>'330'
+                ],
+                [
+                    'plan' => 'price_1NdjwIC2kWkG1GrQVmj494Vb',
+                    'name' => '1 year ad - $600 + GST',
+                    'price' =>'660'
+                    ],
+           
         ],
     ],
 

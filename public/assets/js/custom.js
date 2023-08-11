@@ -19,28 +19,8 @@ $('.house_gallery').slick({
     slidesToScroll: 1,
     arrows: true,
     fade: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 0,
-    speed: 3000,
-    cssEase: 'linear',
-    pauseOnHover: false,
-    focusOnSelect: true,
     asNavFor: '.house_gallery_thumb'
 });
-
-$('.main-slider .slide').css({
-  'transition': 'transform 5s linear',
-});
-
-// Centered slide animation
-$('.main-slider .slick-center .slide').css({
-  'transform': 'scale(1.2)',
-});
-
-
 $('.house_gallery_thumb').slick({
     slidesToShow: 10,
     slidesToScroll: 1,
@@ -48,8 +28,6 @@ $('.house_gallery_thumb').slick({
     dots: false,
     arrows: false,
     centerMode: false,
-    autoplay: false,
-
     focusOnSelect: true,
     responsive: [
         {
