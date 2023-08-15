@@ -299,6 +299,26 @@ class HomeController extends Controller
         return view('user.post', $data);
     }
 
+    public function showUpdatePage($id)
+    {
+        $data['car'] = Car::find($id);
+        $data['years'] = Car::getDataList('year');
+        $data['makes'] = Car::getDataList('make');
+        $data['models'] = Car::getDataList('model');
+        $data['categories'] = Car::getCategories();
+        $data['conditions'] = Car::getDataList('condition');
+        $data['sleeps'] = Car::getDataList('sleep');
+        $data['shower'] = Car::getDataList('shower/toilet');
+        $data['appliances'] = Car::getDataList('kitchen/appliances');
+        $data['windows'] = Car::getDataList('windows');
+        $data['availability'] = Car::getDataList('availability');
+        $data['frame'] = Car::getDataList('frame');
+        $data['budget'] = Car::getDataList('budget');
+        $data['shipping'] = Car::getDataList('national_shipping');
+
+        return view('user.update-post', $data);
+    }
+
     public function showSignupForm()
     {
         return view('admin.signup');
@@ -393,7 +413,7 @@ class HomeController extends Controller
         return redirect('/')->with('message', __("message.REGISTERED_SUCCESSFULLY"));
     } catch (\Exception $e) {
         DB::rollback();
-        dd($e);
+        // dd($e);
         Log::error($e->getTraceAsString());
 
         // Redirect back with error message if any exception occurs
@@ -532,6 +552,163 @@ class HomeController extends Controller
                 $userObj->save();
             }
             $msg = 'Home Added successfully';
+            $success = true;
+            $status = STATUS_OK;
+            $cars = Car::where('id', $resourceObj->id)->with('carImages')->first();
+           
+            $response['car_id'] = $cars->id;
+
+            $response['message'] = $msg;
+            $response['success'] = $success;
+            $response['status'] = $status;
+            
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
+        // return response()->json([
+        //     'status' => 'success',
+        //     'data' => $cars,
+        // ]);
+       // return json_encode($response);
+       return response()->json($response, $response['status']);
+    }
+
+    public function UpdateCars(Request $request)
+    {
+        // For GET requests, show the signup form view
+        if ($request->isMethod('get')) {
+            return $this->showUpdatePage($request->car_id);
+        }
+
+        //dd($request->all());
+        $response = [];
+        $response['success'] = FALSE;
+        $response['status'] = STATUS_BAD_REQUEST;
+        error_log(print_r($request->all(), true));
+        DB::beginTransaction();
+        try {
+            $rules = ['model' => 'required', 'make' => 'required', 'year' => 'required', 'car_address' => 'required'];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                $errorResponse = validation_error_response($validator->errors()->toArray());
+                return $errorResponse;
+            }
+            $requestData = $request->all();
+            $userId = $request->user()->id ?? 0;;
+            $userObj = User::find($userId);
+            $currentDate = Carbon::now()->format('Y-m-d');
+            $userObj = User::find($userId);
+            $resourceObj = Car::find($request->car_id);
+            $resourceObj->user_id = $userId;
+
+            $resourceObj->year = $requestData['year'] ?? "";
+            $resourceObj->make = $requestData['make'] ?? "";
+            $resourceObj->model = $requestData['model'] ?? "";
+            // $resourceObj->engine_number = $requestData['engine_number'] ?? null;
+            // $resourceObj->meter_reading = $requestData['meter_reading'] ?? null;
+            // $resourceObj->car_fuel_type = $requestData['car_fuel_type'] ?? null;
+            $resourceObj->car_number = $requestData['car_number_plate'] ?? generate_string('');;
+            $resourceObj->post_ad_number = generate_string(''); // uniqid('post_', true);
+
+            $resourceObj->engine_size = $requestData['engine_size'] ?? null;
+            $splitParts = explode("-", $request->amount);
+
+            // if (isset($splitParts)) {
+            //     $part1 = $splitParts[0];
+            //     $part2 = $splitParts[1];
+            // }
+
+
+            // $resourceObj->min_amount = $part1 ?? 0;
+            $resourceObj->amount = $request->amount ?? 0;
+
+            $resourceObj->description = $requestData['description'] ?? null;
+            // $resourceObj->car_type = $request->car_type ? $request->car_type:"shipping";
+
+            $findme = $requestData['find_me_buyer'] ?? false;
+
+            if ($findme == 'false' || $findme == 'False') {
+                $findme = false;
+            }
+            $resourceObj->find_me_buyer = $findme;
+            $resourceObj->post_ad_number = generate_string(''); // uniqid('post_', true);
+
+            $resourceObj->lat = $requestData['lat'] ?? ($requestData['latitude'] ?? '-28.016666');
+            $resourceObj->lng = $requestData['lng'] ?? ($requestData['longitude'] ?? '153.399994');
+            $resourceObj->city = $requestData['city'] ?? null;
+            $resourceObj->state = $requestData['state'] ?? null;
+            $resourceObj->condition = $requestData['condition'] ?? null;
+            $resourceObj->mileage = $request->mileage;
+            $resourceObj->availability = $requestData['availability'] ?? null;
+            $resourceObj->frame_construction = $requestData['frame_construction'] ?? null;
+            $resourceObj->national_shipping = $requestData['national_shipping'] ?? null;
+            $resourceObj->car_type = $requestData['car_type'] ?? null;
+
+            
+
+
+            
+            // $resourceObj->exterior_color = $requestData['exterior_color'] ?? null;
+
+            if (!empty($request->car_address)) {
+                $resourceObj->car_address = $requestData['car_address'] ?? "";
+            }
+
+            if (!empty($request->zip_code)) {
+                $resourceObj->zip_code = $requestData['zip_code'] ?? "";
+            }
+
+            if (!empty($request->type_ios)) {
+                $resourceObj->category_id = $requestData['cit'] ?? null;
+            } else {
+                $resourceObj->category_id = $requestData['category_id'] ?? null;
+            }
+            $resourceObj->title_status = $requestData['title_status'] ?? null;
+
+            if ($resourceObj->save()) {
+
+                if ($request->hasFile('file')) {
+                                   //dd($request->file);
+
+                    $files = uploadImages($request->file('file'), IMAGE_UPLOAD_PATH);
+                    foreach ($files as $file) {
+                        $giftImagesObj = new CarImage();
+                        $giftImagesObj->image = $file['file_name'];
+                        $giftImagesObj->user_id = $userId;
+                        $giftImagesObj->car_id = $resourceObj->id;
+                        $giftImagesObj->save();
+                    }
+                }
+                // if (!empty($request->features)) {
+                //     $features = explode(",", $request->features);
+                //     if (!empty($features)) {
+                //         foreach ($features as $feature) {
+                //             $featureObjlist = Featurelist::where('id', $feature)->first();
+                //             if (!empty($featureObjlist)) {
+                //                 $featuresObj = new Vehiclefeature;
+                //                 $featuresObj->user_id = $userId;
+                //                 $featuresObj->feature_id = $featureObjlist->id;
+                //                 $featuresObj->car_id = $resourceObj->id;
+                //                 $featuresObj->title = $featureObjlist->title;
+                //                 $featuresObj->save();
+                //             }
+                //         }
+                //     }
+                // }
+
+                $latitude = $resourceObj->lat;
+                $longitude = $resourceObj->lng;
+                if ($latitude && $longitude) {
+                    saveGeolocation(DB::class, 'cars', $resourceObj->id, $latitude, $longitude);
+                }
+
+                $userObj->save();
+            }
+            $msg = 'Home updated successfully';
             $success = true;
             $status = STATUS_OK;
             $cars = Car::where('id', $resourceObj->id)->with('carImages')->first();
@@ -706,6 +883,28 @@ class HomeController extends Controller
 
 
             $response['message'] = __("message.CAR_DELETED_SUCCESSFULLY");
+            $response['success'] = true;
+            $response['status'] = STATUS_OK;
+        } catch (Exception $e) {
+            throw $e;
+        }
+        DB::commit();
+        return response()->json($response, $response['status']);
+    }
+
+    public function imageDelete(Request $request)
+    {
+        $response = [];
+        $response['success'] = false;
+
+        try {
+            $requestData = $request->all();
+            $userId = $request->user()->id ?? 0;;
+
+            $carImageIds = CarImage::where('id', $request->image_id)->forceDelete();
+
+
+            $response['message'] = "Image Deleted Successfully!";
             $response['success'] = true;
             $response['status'] = STATUS_OK;
         } catch (Exception $e) {

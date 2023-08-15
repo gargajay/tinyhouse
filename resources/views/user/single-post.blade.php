@@ -1,4 +1,8 @@
 @extends('layouts.guest')
+@section('page_style')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+
+@endsection
 @section('content')
 <div id="bodyWrapper" class="flex-grow-1">
     <section class="single_house_page pt-3 pb-5">
@@ -203,6 +207,39 @@
         
     </div>
 </div>
+
+
+@section('page_script')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+<script>
+$('.house_gallery').on('click', '.slick-slide', function() {
+    var largeImageUrl = $(this).find('img').attr('src');
+    
+    $.magnificPopup.open({
+        items: [
+            { src: largeImageUrl }
+        ],
+        gallery: {
+            enabled: true, // Enable gallery mode
+            navigateByImgClick: false, // Prevent closing on image click
+            preload: [1, 1] // Preload one next and one previous image
+        },
+        type: 'image',
+        removalDelay: 300, // Delay removal to allow prev/next links to fade in
+        mainClass: 'mfp-fade',
+        arrowMarkup:
+            '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%" style="border:solid;1px;red;"></button>',
+        tPrev: 'Previous', // Text for previous button
+        tNext: 'Next' // Text for next button
+        // Add more Magnific Popup options here if needed
+    });
+});
+
+
+</script>
+@endsection
 
 
 @endsection

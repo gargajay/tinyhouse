@@ -37,6 +37,7 @@
                                                
                                                 <a href="javascript:void(0);" onclick="actionItem('{{$deleteUrl}}','{{$redUrl}}','{{$car->id}}')" class="dropdown-item">Delete</a>
                                                 <a href="{{url('buy-subscription?car_id='.$car->id)}}" class="dropdown-item">Manage subscription</a>
+                                                <a href="{{url('update-post?car_id='.$car->id)}}" class="dropdown-item">Edit Post</a>
 
 
                                             </div>

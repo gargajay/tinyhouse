@@ -55,9 +55,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/my-home', 'HomeController@myHome');
     Route::get('/account-setting', 'HomeController@accountSetting');
     Route::post('/add-car', 'HomeController@AddCars');
-    Route::post('/update-profile', 'HomeController@updateProfile');
+    Route::any('/update-post', 'HomeController@updateCars');
+    Route::any('/update-profile', 'HomeController@updateProfile');
     Route::post('/mark-sold', 'HomeController@soldCar');
     Route::post('/delete-car', 'HomeController@carDelete');
+    Route::post('/delete-image', 'HomeController@imageDelete');
     Route::get('/buy-subscription', ['as'=>'home','uses'=>'SubscriptionController@index'])->name('subscription.create');
     Route::post('order-post', ['as'=>'order-post','uses'=>'SubscriptionController@orderPost']);
 
