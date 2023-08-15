@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Library\StripeGateway;
 use App\Models\Car;
 use Illuminate\Http\Request;
 Use App\Models\User;
@@ -9,6 +10,7 @@ use Stripe;
 use Session;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Stripe\Plan;
 
 class SubscriptionController extends Controller
 {
@@ -16,6 +18,10 @@ class SubscriptionController extends Controller
     {
         $data['car'] = Car::find($request->car_id);
         $data['intent'] = auth()->user()->createSetupIntent();
+
+       
+
+    $data['products'] = StripeGateway::getPlans();
 
         return view('subscription.create',$data);
     }

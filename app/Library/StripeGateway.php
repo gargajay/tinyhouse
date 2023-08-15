@@ -5,6 +5,9 @@ namespace App\Library;
 use App\Models\Setting;
 use Stripe;
 use Exception;
+use Stripe\Plan;
+use Stripe\Price;
+use Stripe\Product;
 
 class StripeGateway
 {
@@ -16,6 +19,39 @@ class StripeGateway
     public static function setStripeApiKey()
     {
         \Stripe\Stripe::setApiKey(config('mail.stripe.secret_key'));
+    }
+
+    public static function getPlans(){
+        self::setStripeApiKey();
+
+      //  $// Retrieve products from Stripe
+    $stripeProducts = Product::all();
+
+    // Process the products to create an array suitable for the dropdown
+    $products = [];
+    foreach ($stripeProducts->data as $stripeProduct) {
+        if ($stripeProduct->active) {
+        $productInfo = [
+            'product' => $stripeProduct->id,
+            'name' => $stripeProduct->name,
+            'prices' => [],
+        ];
+
+        // Retrieve prices associated with the current product
+        $stripePrices = Price::all(['product' => $stripeProduct->id]);
+        foreach ($stripePrices->data as $stripePrice) {
+            $productInfo['prices'][] = [
+                'price' => $stripePrice->id,
+                'amount' => $stripePrice->unit_amount / 100, // Convert amount to dollars
+                'currency' => strtoupper($stripePrice->currency),
+            ];
+        }
+
+        $products[] = $productInfo;
+    }
+    }
+
+        return $products;
     }
 
     public static function createToken($card = NULL)
