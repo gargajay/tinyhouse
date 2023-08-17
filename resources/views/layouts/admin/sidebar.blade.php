@@ -9,7 +9,7 @@
                     <div class="media-body text-center">
                         <div class="navbar-brand text-center text-lg-left">
                             <a href="{{ route('/') }}" class="d-inline-block">
-                                <img src="{{ asset('/images/logo.png') }}" id="round-img" alt="">
+                                <img src="{{ asset('/public/images/logo.png') }}" id="round-img" alt="">
                             </a>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                 </li>
 
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('featurelist.index') }}"
                         class="nav-link {{ request()->is('featurelist*') ? 'active' : '' }}">
                         <i class="icon-grid" aria-hidden="true"></i>
@@ -70,17 +70,9 @@
                             Vehicle Features
                         </span>
                     </a>
-                </li>
+                </li> -->
 
-                {{-- <li class="nav-item">
-                    <a href="{{ route('vehicle.index') }}"
-                        class="nav-link {{ request()->is('vehicle*') ? 'active' : '' }}">
-                        <i class="fa fa-car" aria-hidden="true"></i>
-                        <span>
-                            Vehicle
-                        </span>
-                    </a>
-                </li> --}}
+              
 
                 <li class="nav-item">
                     <a href="{{ route('category.index') }}"
@@ -94,7 +86,7 @@
 
            
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('payments') }}"
                         class="nav-link {{ request()->is('payment*') ? 'active' : '' }}">
                         <i class="icon-credit-card fa fa-fw"></i>
@@ -112,8 +104,8 @@
                             Settings
                         </span>
                     </a>
-                </li>
-                <li class="nav-item">
+                </li> -->
+                <!-- <li class="nav-item">
                     <a href="{{ route('terms-conditions') }}"
                         class="nav-link {{ request()->is('terms*') ? 'active' : '' }}">
                         <i class="icon-clipboard fa fa-fw"></i>
@@ -121,7 +113,7 @@
                             Terms & Conditions
                         </span>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="{{ route('admin.logout') }}" class="nav-link">
                         <i class="icon-switch2 fa fa-fw"></i>

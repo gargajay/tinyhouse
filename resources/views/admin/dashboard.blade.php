@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                         <div class="card card-body card-box text-white has-bg-image">
                             <div class="media">
                                 <div class="media-body">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="row">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <!-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title">Cars</h5>
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -188,10 +188,10 @@
             },
         };
 
-        var userGraph = new Chart(
-            document.getElementById('car-graph'),
-            userGraphConfig
-        );
+        // var userGraph = new Chart(
+        //     document.getElementById('car-graph'),
+        //     userGraphConfig
+        // );
         // USER GRAPH : ENS
     </script>
 

@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="mt-10">
-                            <h4 class="fw-500 text-xl border-bottom-4 border-theme px-3">Offers</h4>
+                            <h4 class="fw-500 text-xl border-bottom-4 border-theme px-3">Suppliers Listings</h4>
                             <ul class="houses_list column-3">
                             @if(!$cars->isEmpty())
                         @foreach($cars as $car)

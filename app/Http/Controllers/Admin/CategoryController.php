@@ -89,7 +89,7 @@ class CategoryController extends Controller
 
             $resourceObj = new Category;
             $resourceObj->title = $requestData['title'];
-            $resourceObj->es_title = $requestData['spanish_title'];
+            // $resourceObj->es_title = $requestData['spanish_title'];
 
             // $resourceObj->description = $requestData['description'] ?? NULL;
 
@@ -172,7 +172,7 @@ class CategoryController extends Controller
 
             $resourceObj = Category::find($id);
             $resourceObj->title = $requestData['title'] ?? $resourceObj->title;
-            $resourceObj->es_title = $requestData['spanish_title'] ?? $resourceObj->es_title;
+            // $resourceObj->es_title = $requestData['spanish_title'] ?? $resourceObj->es_title;
 
             // $resourceObj->description = $requestData['description'] ?? $resourceObj->description;
 

@@ -41,7 +41,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label class="col-form-label col-lg-2">Spanish Title</label>
                                 <div class="col-lg-10">
                                     <div class="row">
@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 {{--
     
     
