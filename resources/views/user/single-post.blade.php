@@ -19,8 +19,10 @@
                                     @if(isset($post->cars_images) && $post->cars_images->IsNotEmpty())
                                     @foreach($post->cars_images as $image)
                                     <div>
-                                        <div class="house_img slide" >
+                                        <div class="house_img slide " >
+                                        <a href="{{ $image->image }}" class="popup-link">
                                             <img src="{{ $image->image }}" alt="House" class="img-fluid" />
+                                        </a>
                                         </div>
                                     </div>
                                     @endforeach
@@ -214,28 +216,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
 <script>
-$('.house_gallery').on('click', '.slick-slide', function() {
-    var largeImageUrl = $(this).find('img').attr('src');
+// $('.house_gallery').on('click', '.slick-slide', function() {
+//     var largeImageUrl = $(this).find('img').attr('src');
     
-    $.magnificPopup.open({
-        items: [
-            { src: largeImageUrl }
-        ],
-        gallery: {
-            enabled: true, // Enable gallery mode
-            navigateByImgClick: false, // Prevent closing on image click
-            preload: [1, 1] // Preload one next and one previous image
-        },
+//     $.magnificPopup.open({
+//         items: [
+//             { src: largeImageUrl }
+//         ],
+//         gallery: {
+//             enabled: true, // Enable gallery mode
+//             navigateByImgClick: false, // Prevent closing on image click
+//             preload: [1, 1] // Preload one next and one previous image
+//         },
+//         type: 'image',
+//         removalDelay: 300, // Delay removal to allow prev/next links to fade in
+//         mainClass: 'mfp-fade',
+//         arrowMarkup:
+//             '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%" style="border:solid;1px;red;"></button>',
+//         tPrev: 'Previous', // Text for previous button
+//         tNext: 'Next' // Text for next button
+//         // Add more Magnific Popup options here if needed
+//     });
+// });
+$('.popup-link').magnificPopup({
         type: 'image',
-        removalDelay: 300, // Delay removal to allow prev/next links to fade in
-        mainClass: 'mfp-fade',
-        arrowMarkup:
-            '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%" style="border:solid;1px;red;"></button>',
-        tPrev: 'Previous', // Text for previous button
-        tNext: 'Next' // Text for next button
-        // Add more Magnific Popup options here if needed
+        gallery: {
+            enabled: true
+        },
+        mainClass: 'mfp-with-zoom', // Add this line for zoom effect
+        zoom: {
+            enabled: true,
+            duration: 300,
+            opener: function(element) {
+                return element.find('img');
+            }
+        }
     });
-});
 
 
 </script>
