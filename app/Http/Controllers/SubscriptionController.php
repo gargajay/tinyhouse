@@ -40,6 +40,35 @@ class SubscriptionController extends Controller
                 $car = Car::find($request->car_id);
                 Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
+
+                if(!empty($request->promo_code))
+                {
+                    if($request->promo_code=='WELCOMEOFFER'){
+                        $userObj = User::find($user->id);
+                        if($userObj->is_info==true){
+                            return back()->with('error',"You have already used this promocode");
+
+                        }
+                        $currentDate = now();
+                        $newDate = $currentDate->addDays(30);
+                        $newDateString = $newDate->format('Y-m-d');
+
+                        $car->expiry_date = $newDateString;
+        
+                        $car->save();
+                        $userObj->is_info = true;
+                        $userObj->save();
+                        DB::commit();
+                        return back()->with('success','Promo code applied successfully.');
+
+
+                    }else{
+                        DB::rollBack();
+                        return back()->with('error',"Invalid or expired promocode");
+        
+                    }
+                }
+
                 if (is_null($user->stripe_id)) {
                     $stripeCustomer = $user->createAsStripeCustomer();
                 }

@@ -55,13 +55,31 @@
                     <div class="card-header">
                         Your tiny home is currently saved in draft mode and is not visible to users. Please make a payment to have it appear in the search list. Please choose subscription plan below.
                     </div>
+                    <br>
                     <div class="card-body">
-                        @if (session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
                         @endif
 
+                        <form action="{{ url('order-post') }}" method="post" >
+                            @csrf
+
+                            <input type="hidden" name="car_id" value="{{$car->id}}">
+                            <!-- <input type="hidden" name="plan" value="basic"> -->
+
+                            <div class="form-group">
+                                <label for="">Have a promo code ?</label>
+                                <input type="text" name="promo_code"  class="form-control" value="" placeholder="Promo code" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" >Submit</button>
+
+                        </form>
+                    </div>
+                    <br>
+                    <div class="card-body">
                         <form action="{{ url('order-post') }}" method="post" id="payment-form">
                             @csrf
 

@@ -47,7 +47,7 @@
                                         <div class="form-group col-md-6 col-lg-4">
                                             <div class="price">
                                             <input type="number" name="min_price" id="minPrice" placeholder="Min" class="form-control">
-                                            <input type="number" name="max_price" placeholder="Min" class="form-control">
+                                            <input type="number" name="max_price" placeholder="Max" class="form-control">
 
                                                
                                             </div>
