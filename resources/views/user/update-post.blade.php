@@ -465,13 +465,14 @@
 
         function validateFirstTab() {
             // Check if at least 3 images are selected
-            if (selectedFiles.length >= 3) {
-                return true; // Validation passed, return true
-            } else {
-                // Display an error message or alert
-                alert('Please select at least 3 images.');
-                return false; // Validation failed, return false
-            }
+            // if (selectedFiles.length >= 3) {
+            //     return true; // Validation passed, return true
+            // } else {
+            //     // Display an error message or alert
+            //     alert('Please select at least 3 images.');
+            //     return false; // Validation failed, return false
+            // }
+            return true;
         }
 
 
