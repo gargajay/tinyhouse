@@ -190,10 +190,10 @@ class HomeController extends Controller
         $distanceRaw = null;
     if (isset($requestData['latitude']) && $requestData['longitude'] != '') {
         if (isset($requestData['km']) && $requestData['km'] != '') {
-            $search_distance_limit = $requestData['km'];
+            $search_distance_limit = 2000;
         } else {
             $setting = Setting::where('name', 'search_distance_limit')->first();
-            $search_distance_limit = $setting->value ?? 50;
+            $search_distance_limit = 2000;
         }
         $userLat = $requestData['latitude'];
         $userLong = $requestData['longitude']; // Fix typo "Lng" to "lng"
