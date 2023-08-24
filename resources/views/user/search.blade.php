@@ -252,6 +252,8 @@
 
         // Event listener for changes in filter inputs
         $(".filter-input").change(function() {
+            var newUrl = window.location.origin + window.location.pathname;
+            history.replaceState({}, document.title, newUrl);
             var filterData = gatherFilterData();
             performAjaxRequest(filterData);
         });

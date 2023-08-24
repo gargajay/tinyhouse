@@ -265,8 +265,9 @@
             var category_id = urlParams.get('category_id');
             // alert(1);
             urlParams.forEach(function(value, key) {
-                // alert(key);
-                formData[key] = value;
+                if(value){
+                    formData[key] = value;
+                }
             });
             // if (queryParam) {
             //     formData.search_term = queryParam;
