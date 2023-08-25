@@ -77,6 +77,10 @@ class SubscriptionController extends Controller
 
                if($sub)
                {
+
+                $sub->cancel();
+                $sub->save();
+
                 $currentDate = now();
 
 
