@@ -83,7 +83,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0; mso-table-rspace: 0;" width="100%">
                                                         <tr>
                                                             <td style="padding-bottom:15px;width:100%;padding-right:0px;padding-left:0px;">
-                                                                <div align="center" style="line-height:10px"><img alt="your-logo" src="{{ $message->embed(asset('images/logo.png')) }}" style="display: block; height: auto; border: 0; width: 125px; max-width: 100%;" title="your-logo" width="125" /></div>
+                                                                <div align="center" style="line-height:10px"><img alt="your-logo" src="{{ $message->embed(asset('public/images/logo.png')) }}" style="display: block; height: auto; border: 0; width: 125px; max-width: 100%;" title="your-logo" width="125" /></div>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -106,7 +106,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0; mso-table-rspace: 0;" width="100%">
                                                         <tr>
                                                             <td style="width:100%;padding-right:0px;padding-left:0px;padding-top:5px;">
-                                                                <div align="center" style="line-height:10px"><img class="big" src="{{ $message->embed(asset('images/mail/Top.png')) }}" style="display: block; height: auto; border: 0; width: 500px; max-width: 100%;" width="500" /></div>
+                                                                <div align="center" style="line-height:10px"><img class="big" src="{{ $message->embed(asset('public/images/mail/Top.png')) }}" style="display: block; height: auto; border: 0; width: 500px; max-width: 100%;" width="500" /></div>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -129,7 +129,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0; mso-table-rspace: 0;" width="100%">
                                                         <tr>
                                                             <td style="padding-bottom:5px;padding-left:5px;padding-right:5px;width:100%;">
-                                                                <div align="center" style="line-height:10px"><img alt="reset-password" src="{{ $message->embed(asset('images/mail/pass-animate.gif')) }}" style="display: block; height: auto; border: 0; width: 350px; max-width: 100%;" title="reset-password" width="350" /></div>
+                                                                <div align="center" style="line-height:10px"><img alt="reset-password" src="{{ $message->embed(asset('public/images/mail/pass-animate.gif')) }}" style="display: block; height: auto; border: 0; width: 350px; max-width: 100%;" title="reset-password" width="350" /></div>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -192,7 +192,7 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0; mso-table-rspace: 0;" width="100%">
                                                         <tr>
                                                             <td style="width:100%;padding-right:0px;padding-left:0px;">
-                                                                <div align="center" style="line-height:10px"><img class="big" src="{{ $message->embed(asset('images/mail/Btm.png')) }}" style="display: block; height: auto; border: 0; width: 500px; max-width: 100%;" width="500" /></div>
+                                                                <div align="center" style="line-height:10px"><img class="big" src="{{ $message->embed(asset('public/images/mail/Btm.png')) }}" style="display: block; height: auto; border: 0; width: 500px; max-width: 100%;" width="500" /></div>
                                                             </td>
                                                         </tr>
                                                     </table>

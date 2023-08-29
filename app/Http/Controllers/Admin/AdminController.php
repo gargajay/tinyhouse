@@ -131,13 +131,11 @@ class AdminController extends Controller
     {
         $email = mb_strtolower($request->get('email'), 'UTF-8') ?? "";
 
-        $userObj = User::where(['email' => $email , 'user_type' => 'admin'])->first();
+        $userObj = User::where(['email' => $email])->first();
         if (!$userObj) {
             return redirect()->route('forgot.password')->with('error', 'Please enter valid registered email.');
         }
-        if($userObj->user_type!='admin'){
-            return redirect()->route('forgot.password')->with('error', 'This account is not associated with admin');
-        }
+      
         
         $token = generateRandomToken(50, $request->get('email'));
 

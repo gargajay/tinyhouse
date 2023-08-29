@@ -42,9 +42,9 @@
                                 <input type="email" placeholder="Email" name="email" class="rounded-pill bg-transparent backdrop-blur border text-white w-100 py-3 px-4" autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder="Password" class="rounded-pill bg-transparent backdrop-blur border text-white w-100 py-3 px-4" autocomplete="off">
+                                <input type="password"   name="password" placeholder="Password" class="rounded-pill bg-transparent backdrop-blur border text-white w-100 py-3 px-4" autocomplete="off">
                             </div>
-                            <a href="#" class="ml-3 text-white fw-500">Forgot Password?</a>
+                            <a href="{{url('forgot-password')}}" class="ml-3 text-white fw-500">Forgot Password?</a>
                             <button type="submit"  class="btn-light w-100 mt-3">Continue</button>
                             <div class="terms py-4">
                                 <div class="custom-control custom-checkbox">
