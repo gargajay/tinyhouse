@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\CarImage;
 use App\Models\Category;
-use App\Models\VehicleCompany;
-use App\Models\VehicleModel;
+
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -23,13 +22,15 @@ class CarController extends Controller
     public function index(Request $request)
     {
         $data = [];
-        $data['page_title'] = 'Vehicle';
-        $categoryObj = VehicleCompany::latest();
+        $data['page_title'] = 'Tiny homes';
+        $categoryObj = Car::latest();
         if ($request->has('q') && !empty($request->get('q'))) {
             $q = $request->get('q');
             $data['q'] = $q;
 
-            $categoryObj->whereRaw("(vehicle_name LIKE '%" . $q . "%')");
+            $categoryObj->whereRaw("(make LIKE '%" . $q . "%')");
+            $categoryObj->orWhereRaw("(model LIKE '%" . $q . "%')");
+            $categoryObj->orWhereRaw("(year LIKE '%" . $q . "%')");
 
             $result = $categoryObj->paginate(10)->appends(['q' => $q]);
         } else {
@@ -47,8 +48,8 @@ class CarController extends Controller
     public function create()
     {
         // $data = [];
-        $data['page_title'] = 'Add Vehicle';
-        return view('admin.vehicle.create')->with(compact('data'));
+        $data['page_title'] = 'Add Tiny home';
+        return view('admin.Tiny home.create')->with(compact('data'));
     }
 
     /**
@@ -57,34 +58,7 @@ class CarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $rules = [
-            'vehicle_name' => 'required',
-
-        ];
-        try {
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                $errorResponse = $validator->errors()->toArray();
-
-                return redirect()->back()->withInput()->with('error', $errorResponse['message']);
-            }
-            $requestData = $request->all();
-
-            $resourceObj = new VehicleCompany;
-            $resourceObj->vehicle_name = $requestData['vehicle_name'] ?? NULL;
-            $resourceObj->save();
-
-            return redirect()->route('vehicle.index')->with('success', 'Vehicle added successfully');
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            Log::error($e->getTraceAsString());
-
-            return redirect()->back()->withInput()->with('error', $message);
-        }
-    }
+  
 
     /**
      * Display the specified resource.
@@ -92,13 +66,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
-    {
-        // $data = [];
-        $data['page_title'] = 'Vehicle Detail';
-        $data = VehicleCompany::where('id', $id)->first();
-        return view('admin.vehicle.detail')->with(compact('data'));
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -106,13 +74,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $data = VehicleCompany::find($id);
-        $data['page_title'] = 'Edit Vehicle';
-
-        return view('admin.vehicle.edit')->with(compact('data'));
-    }
+  
 
     /**
      * Update the specified resource in storage.
@@ -121,35 +83,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $rules = [
-            'vehicle_name' => 'required',
-        ];
-
-
-        try {
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                $errorResponse = validation_error_response($validator->errors()->toArray());
-                return redirect()->back()->withInput()->with('error', $errorResponse['message']);
-            }
-
-            $requestData = $request->all();
-
-            $resourceObj = VehicleCompany::find($id);
-            $resourceObj->vehicle_name = $requestData['vehicle_name'] ?? $resourceObj->vehicle_name;
-            $resourceObj->save();
-
-            return redirect()->route('vehicle.index')->with('success', 'Vehicle updated successfully');
-        } catch (\Exception $e) {
-            $message = $e->getMessage();
-            Log::error($e->getTraceAsString());
-
-            return redirect()->back()->withInput()->with('error', $message);
-        }
-    }
+   
 
     /**
      * Remove the specified resource from storage.
@@ -157,14 +91,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-
-        // Need to find all addresses with the contact Id and delete them.
-        VehicleCompany::find($id)->delete();
-        return redirect()->route('vehicle.index')->with('success', 'Vehicle deleted successfully');
-    }
-
+ 
     /**
      * Remove the specified resource from storage.
      *
@@ -176,13 +103,13 @@ class CarController extends Controller
 
 
         if (!$id) {
-            return redirect()->route('vehicle.index')->with('error', 'Invalid Vehicle id');
+            return redirect()->route('vehicle.index')->with('error', 'Invalid Tiny home id');
         }
 
-        $resourceObj = VehicleCompany::find($id);
+        $resourceObj = Car::find($id);
 
         if ($resourceObj->delete()) {
-            return redirect()->route('vehicle.index')->with('success', 'Vehicle deleted successfully');
+            return redirect()->route('vehicle.index')->with('success', 'Tiny home deleted successfully');
         }
         return redirect()->route('vehicle.index')->with('error', DEFAULT_ERROR_MESSAGE);
     }

@@ -12,7 +12,7 @@
 
                     <div class="header-elements d-none">
                         <div class="d-flex justify-content-center">
-                            <a href="{{ route('vehicle.create') }}" type="button" class="btn btn-primary">Add</a>
+                            <!-- <a href="{{ route('vehicle.create') }}" type="button" class="btn btn-primary">Add</a> -->
                             <form style="margin-left: 5px;" action="{{ route('vehicle.index') }}">
                                 <div class="navbar-search d-flex align-items-center py-2 py-lg-0">
                                     <div class="form-group-feedback form-group-feedback-left flex-grow-1">
@@ -40,10 +40,10 @@
                             <thead class="t-head">
                                 <tr class="">
                                     <th>#</th>
-                                    <th>Vehicle Company</th>
-                                    {{-- <th>Vehicle Model</th> --}}
-                                    {{-- <th>Manufacture Year</th>
-                                    <th>Amount</th> --}}
+                                    <th>Company</th>
+                                    <th>Model</th> 
+                                    <th>Manufacture Year</th>
+                                    <th>Amount</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -53,21 +53,18 @@
                                     @foreach ($result as $key => $value)
                                         <tr>
                                             <td>{{ $firstItemIndex++ }}</td>
-                                            <td>{{ $value['vehicle_name'] ?? '' }}</td>
-                                            {{-- <td>{{ $value['model_name'] ?? '' }}</td> --}}
+                                            <td>{{ $value['make'] ?? '' }}</td>
+                                             <td>{{ $value['model'] ?? '' }}</td>
+                                             <td>{{ $value['year'] ?? '' }}</td>
+                                             <td>{{ $value['amount'] ?? '' }}</td>
                                             <td>
                                                 <div class="list-icons">
-                                                    <a href="{{ route('vehicle.edit', [$value['id']]) }}"
-                                                        class="list-icons-item text-primary" title="Edit"><i
-                                                            class="icon-pencil7"></i></a>
-                                                    {{-- <a href="#" title="Delete" class="list-icons-item text-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{ $value->id ,$value->title }}">
-                                                                <i class="icon-trash"></i></a> --}}
+                                                    
+                                                 
                                                     <a href="{{ route('vehicle.delete', [$value['id']]) }}"
                                                         class="list-icons-item text-danger" title="Delete"><i
                                                             class="icon-trash"></i></a>
-                                                    <a href="{{ route('vehicle-model.index', ['cid' => $value['id']]) }}"
-                                                        class="list-icons-item text-primary" title="vehicle-model"><i
-                                                            class="icon-database-menu"></i></a>
+                                                   
                                                 </div>
                                             </td>
                                         </tr>
