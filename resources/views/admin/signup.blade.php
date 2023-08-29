@@ -151,7 +151,7 @@
         });
     });
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeXdfGlRz3eZAfF56CTwER4yvnq3fusYs&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeX&libraries=places"></script>
 
 <script>
     

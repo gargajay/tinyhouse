@@ -62,15 +62,15 @@
                 </li>
 
 
-                <!-- <li class="nav-item">
-                    <a href="{{ route('featurelist.index') }}"
-                        class="nav-link {{ request()->is('featurelist*') ? 'active' : '' }}">
+                <li class="nav-item">
+                    <a href="{{ route('vehicle.index') }}"
+                        class="nav-link {{ request()->is('vehicle*') ? 'active' : '' }}">
                         <i class="icon-grid" aria-hidden="true"></i>
                         <span>
-                            Vehicle Features
+                            Tiny home listing
                         </span>
                     </a>
-                </li> -->
+                </li>
 
               
 
