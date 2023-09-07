@@ -635,10 +635,9 @@ jQuery(document).ready(function ($) {
           // Handle the success response here
 
           if(!response.success){
-            $("#btnlast").prop("disabled", true);
+            $("#btnlast").prop("disabled", false);
           $("#btnlast").removeClass("disabled");
-
-      $("#btnlast").html('Loading...');
+          $("#btnlast").html("Next"); 
           }
           
 
@@ -656,10 +655,9 @@ jQuery(document).ready(function ($) {
           // You can redirect or display a success message
         },
         error: function(xhr, status, error) {
-            $("#btnlast").prop("disabled", true);
-            $("#btnlast").removeClass("disabled");
-
-      $("#btnlast").html('Loading...');  
+            $("#btnlast").prop("disabled", false);
+          $("#btnlast").removeClass("disabled");
+          $("#btnlast").html("Next"); 
           // Handle the error response here
           console.error(error);
           // You can display an error message or handle the error accordingly

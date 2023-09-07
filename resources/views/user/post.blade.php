@@ -574,10 +574,12 @@ jQuery(document).ready(function ($) {
         success: function(response) {
                // Re-enable the button and hide the loader
                if(!response.success){
-            $("#btnlast").prop("disabled", true);
+                $("#btnlast").prop("disabled", false);
           $("#btnlast").removeClass("disabled");
+          $("#btnlast").html("Next"); 
 
-      $("#btnlast").html('Loading...');
+
+     
           }
           
          
@@ -590,8 +592,7 @@ jQuery(document).ready(function ($) {
         error: function(xhr, status, error) {
 
             $("#btnlast").prop("disabled", false);
-            $("#btnlast").removeClass("disabled");
-
+          $("#btnlast").removeClass("disabled");
           $("#btnlast").html("Next"); 
           // Handle the error response here
           console.error(error);
