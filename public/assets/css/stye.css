@@ -29,6 +29,14 @@ select {
 .text-theme{
     color: var(--theme-color);
 }
+
+button.disabled {
+    background-color: #ccc; /* Change the background color */
+    color: #888; /* Change the text color */
+    cursor: not-allowed; /* Change the cursor style */
+  }
+
+  
 .bg-theme{
     background-color: var(--theme-color);
 }
@@ -1964,4 +1972,7 @@ svg.svg-inline--fa {
         height: 35px;
     }
 }
+
+
+
 

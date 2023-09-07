@@ -613,10 +613,13 @@ jQuery(document).ready(function ($) {
     // Submit form Next button click
     $("#btnlast").on("click", function(e) {
       e.preventDefault();
+      $("#btnlast").prop("disabled", true);
+      $("#btnlast").addClass("disabled");
+      $("#btnlast").html('Loading...'); 
       var form = $("#myForm")[0];
       var formData = new FormData(form);
-      $("#btnlast").prop("disabled", true);
-      // Retrieve CKEditor content
+      
+            // Retrieve CKEditor content
     var ckEditorContent = CKEDITOR.instances.editor.getData();
     
     // Append CKEditor content to FormData
@@ -630,14 +633,18 @@ jQuery(document).ready(function ($) {
         contentType: false,
         success: function(response) {
           // Handle the success response here
-        
+
+          if(!response.success){
+            $("#btnlast").prop("disabled", true);
+          $("#btnlast").removeClass("disabled");
+
+      $("#btnlast").html('Loading...');
+          }
+          
 
        //   $("#msg").text(response.message);
 
-       if(!response.success){
-        $("#btnlast").prop("disabled", false);
-
-       }
+     
        showToast(response.success, response.message);
 
        if(response.success){
@@ -649,7 +656,10 @@ jQuery(document).ready(function ($) {
           // You can redirect or display a success message
         },
         error: function(xhr, status, error) {
+            $("#btnlast").prop("disabled", true);
+            $("#btnlast").removeClass("disabled");
 
+      $("#btnlast").html('Loading...');  
           // Handle the error response here
           console.error(error);
           // You can display an error message or handle the error accordingly

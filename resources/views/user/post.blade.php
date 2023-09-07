@@ -552,21 +552,19 @@
 
 <script>
 jQuery(document).ready(function ($) {
-
-    
-
     // Submit form Next button click
     $("#btnlast").on("click", function(e) {
       e.preventDefault();
+      $("#btnlast").prop("disabled", true);
+      $("#btnlast").addClass("disabled");
+      $("#btnlast").html('Loading...'); 
       var form = $("#myForm")[0];
       var formData = new FormData(form);
-      $("#btnlast").prop("disabled", true);
-      // Retrieve CKEditor content
+ // Disable the button and show the loader
+    // Retrieve CKEditor content
     var ckEditorContent = CKEDITOR.instances.editor.getData();
-    
     // Append CKEditor content to FormData
     formData.append('description', ckEditorContent);
-      
       $.ajax({
         url: '{{url("/add-car")}}', // Replace with the URL where your form should be submitted
         method: "POST",
@@ -574,27 +572,27 @@ jQuery(document).ready(function ($) {
         processData: false,
         contentType: false,
         success: function(response) {
-          // Handle the success response here
-        
+               // Re-enable the button and hide the loader
+               if(!response.success){
+            $("#btnlast").prop("disabled", true);
+          $("#btnlast").removeClass("disabled");
 
-       //   $("#msg").text(response.message);
-
-       if(!response.success){
-        $("#btnlast").prop("disabled", false);
-
-       }
+      $("#btnlast").html('Loading...');
+          }
+          
+         
+      
        showToast(response.success, response.message);
-
        if(response.success){
         window.location.href = '{{url("buy-subscription?car_id=")}}' + response.car_id;
-
        }
-
-      // var data = response.data;
-          // You can redirect or display a success message
         },
         error: function(xhr, status, error) {
 
+            $("#btnlast").prop("disabled", false);
+            $("#btnlast").removeClass("disabled");
+
+          $("#btnlast").html("Next"); 
           // Handle the error response here
           console.error(error);
           // You can display an error message or handle the error accordingly
