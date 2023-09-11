@@ -62,7 +62,46 @@ class SubscriptionController extends Controller
                         return back()->with('success','Promo code applied successfully.');
 
 
-                    }else{
+                    }else if($request->promo_code=='THOMES1MONTH')
+                    {
+                        $userObj = User::find($user->id);
+                        if($car->is_payment==1){
+                            return back()->with('error',"You have already used this promocode");
+
+                        }
+                        $currentDate = now();
+                        $newDate = $currentDate->addDays(30);
+                        $newDateString = $newDate->format('Y-m-d');
+
+                        $car->expiry_date = $newDateString;
+                        $car->is_payment = 1;
+                        $car->save();
+                        $userObj->is_info = true;
+                        $userObj->save();
+                        DB::commit();
+                        return back()->with('success','Promo code applied successfully.');
+                    }
+                    else if($request->promo_code=='THOMES2MONTH')
+                    {
+                        $userObj = User::find($user->id);
+                        if($car->is_payment==1){
+                            return back()->with('error',"You have already used this promocode");
+                        }
+                        $currentDate = now();
+                        $newDate = $currentDate->addDays(60);
+                        $newDateString = $newDate->format('Y-m-d');
+
+                        $car->expiry_date = $newDateString;
+        
+                        $car->is_payment = 1;
+                        $car->save();
+                        $userObj->is_info = true;
+                        $userObj->save();
+                        DB::commit();
+                        return back()->with('success','Promo code applied successfully.');
+                    }
+                    
+                    else{
                         DB::rollBack();
                         return back()->with('error',"Invalid or expired promocode");
         

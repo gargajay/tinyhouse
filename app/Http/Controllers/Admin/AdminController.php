@@ -43,7 +43,6 @@ class AdminController extends Controller
                 $message = $checkUser['message'];
 
                // dd($message);
-
                 return redirect()->route('login')->with('error', $message);
             }
 
