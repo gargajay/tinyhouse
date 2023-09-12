@@ -337,13 +337,12 @@
                     $('#sellerModal').html(response.html);
 
                     // Show the modal
-                    $('.sellbtn').modal('show');
+                    $('#sellerModal').modal('show');
                     $(".sellbtn").prop("disabled", false);
           $(".sellbtn").removeClass("disabled");
           $(".sellbtn").html("Contact Seller");
                 },
                 error: function() {
-                    $('.sellbtn').modal('show');
                     $(".sellbtn").prop("disabled", false);
           $(".sellbtn").removeClass("disabled");
           $(".sellbtn").html("Contact Seller");
