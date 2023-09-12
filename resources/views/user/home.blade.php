@@ -98,9 +98,8 @@
                                 <img src="{{ $car->carImageSingle ? $car->carImageSingle->image:'' }}" alt="House" class="img-fluid" />
                                 </a>
                                 <div class="house_content">
-                                    <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">{{$car->make}}</a></h3>
+                                    <h3 class="title line-clamp-2 text-lg fw-600"><a href="#">{{$car->model}} {{$car->make}}</a></h3>
                                     <p class="h-price text-base fw-600 text-theme">${{$car->amount}}</p>
-                                    <p class="h-view text-sm fw-400 textGray">2 views</p>
                                     <p class="h-zip text-sm fw-400 textGray">post Code: {{$car->zip_code}}</p>
                                     <p class="h-post_date text-sm fw-400 textGray">Posted: {{$car->created_at->format('Y-m-d')}}</p>
                                 </div>
