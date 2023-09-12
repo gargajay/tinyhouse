@@ -325,6 +325,9 @@
         }
 
         function showSellerModal(sellerId) {
+            $(".sellbtn").prop("disabled", true);
+      $(".sellbtn").addClass("disabled");
+      $(".sellbtn").html('Loading...'); 
             // Make an AJAX request to get the modal content for the specific seller
             $.ajax({
                 type: 'GET',
@@ -334,9 +337,16 @@
                     $('#sellerModal').html(response.html);
 
                     // Show the modal
-                    $('#sellerModal').modal('show');
+                    $('.sellbtn').modal('show');
+                    $(".sellbtn").prop("disabled", false);
+          $(".sellbtn").removeClass("disabled");
+          $(".sellbtn").html("Contact Seller");
                 },
                 error: function() {
+                    $('.sellbtn').modal('show');
+                    $(".sellbtn").prop("disabled", false);
+          $(".sellbtn").removeClass("disabled");
+          $(".sellbtn").html("Contact Seller");
                     console.log('Error occurred while fetching modal content.');
                 }
             });
